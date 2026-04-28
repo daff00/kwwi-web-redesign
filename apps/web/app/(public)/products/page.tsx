@@ -1,12 +1,12 @@
-import type { Metadata } from 'next';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { api } from '@/lib/api';
-import Image from 'next/image';
+import type { Metadata } from "next";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { api } from "@/lib/api";
+import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: 'Products',
-  description: 'Explore our products',
+  title: "Products",
+  description: "Explore our products",
 };
 
 export default async function ProductsPage() {
@@ -19,22 +19,33 @@ export default async function ProductsPage() {
   }
 
   return (
-    <div className="container mx-auto py-16 px-4">
-      <div className="mb-10 text-center">
-        <h1 className="text-4xl font-bold mb-3">Our Products</h1>
-        <p className="text-muted-foreground text-lg">
-          Explore what we have to offer
-        </p>
-      </div>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section
+        className="relative h-screen flex items-center justify-center bg-cover bg-center"
+        style={{ backgroundImage: "url('/hero-bg.png')" }}
+      >
+        {/* Black 20% Tint Overlay */}
+        <div className="absolute inset-0 bg-black/500 z-0"></div>
 
+        {/* Seamless Gradient Fade at the Bottom */}
+        {/* Change from-[#866544] to from-white if your next section is actually white */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#866544] to-transparent z-0"></div>
+
+        {/* Content (z-10 keeps it above the tint and gradient) */}
+        <div className="relative z-10 text-center">
+          <h1 className="text-white text-5xl font-bold drop-shadow-md">
+            {" "}
+            Products Hero Section
+          </h1>
+        </div>
+      </section>
       {products.length === 0 ? (
         <div className="text-center py-20">
           <Badge variant="secondary" className="text-base px-4 py-2">
             No products yet
           </Badge>
-          <p className="text-muted-foreground mt-4">
-            Check back soon!
-          </p>
+          <p className="text-muted-foreground mt-4">Check back soon!</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
