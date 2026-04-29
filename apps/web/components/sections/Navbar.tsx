@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion, LayoutGroup } from "framer-motion";
+import { motion } from "framer-motion";
 import { Menu, ArrowRight, Mail, Phone } from "lucide-react";
 import {
   Sheet,
@@ -14,17 +14,20 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
+const centerLinks = [
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about" },
+  { name: "Products", href: "/products" },
+];
+
 export function Navbar() {
-  const [navState, setNavState] = useState("top"); // States: "top", "glass", "white"
+  const [navState, setNavState] = useState("top");
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-
-      // Calculate the exact pixel where the hero section ends for all pages.
       const whiteThreshold = window.innerHeight - 80;
-
       if (scrollY > whiteThreshold) {
         setNavState("white");
       } else if (scrollY > 50) {
@@ -34,18 +37,10 @@ export function Navbar() {
       }
     };
 
-    // Run once on mount to set initial state correctly
     handleScroll();
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []); // pathname removed from dependencies
-
-  const centerLinks = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
-    { name: "Products", href: "/products" },
-  ];
+  }, []);
 
   return (
     <header
@@ -60,7 +55,7 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 relative">
-          {/* Left Side: Logo */}
+          {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link
               href="/"
@@ -79,41 +74,38 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Center: Navigation */}
-          <LayoutGroup id="desktop-nav">
-            <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-8">
-              {centerLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className="relative font-medium py-1 px-1 transition-opacity hover:opacity-80"
-                  >
-                    {link.name}
-                    {isActive && (
-                      <motion.span
-                        layoutId="desktop-underline"
-                        className="absolute bottom-0 left-0 h-[2px] w-full bg-current"
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 30,
-                        }}
-                      />
-                    )}
-                  </Link>
-                );
-              })}
-            </nav>
-          </LayoutGroup>
+          {/* Center Navigation */}
+          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-8">
+            {centerLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="relative font-medium py-1 px-1 transition-opacity hover:opacity-80"
+                >
+                  {link.name}
+                  <motion.span
+                    className="absolute bottom-0 left-0 h-[2px] w-full bg-current"
+                    initial={{ scaleX: 0, opacity: 0 }}
+                    animate={{
+                      scaleX: isActive ? 1 : 0,
+                      opacity: isActive ? 1 : 0,
+                    }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    style={{ originX: 0 }}
+                  />
+                </Link>
+              );
+            })}
+          </nav>
 
-          {/* Right Side: Get Quote Button & Mobile Menu */}
+          {/* Right Side */}
           <div className="flex items-center gap-4">
             <Link
               href="/contact"
               className={cn(
-                "hidden md:flex items-center justify-center font-bold w-[162px] h-[48px] rounded-3xl transition-all duration-300",
+                "hidden md:flex items-center justify-center font-bold w-[162px] h-[48px] rounded-[20px] transition-all duration-300",
                 navState === "white"
                   ? "bg-[#866544] text-white hover:bg-[#866544]/90"
                   : "bg-[#f4f4f4]/[0.21] border border-[#ffffff]/[0.21] text-white hover:bg-[#f4f4f4]/[0.3]",
@@ -122,7 +114,7 @@ export function Navbar() {
               Get Quote
             </Link>
 
-            {/* Mobile Hamburger Menu */}
+            {/* Mobile Menu */}
             <div className="md:hidden flex items-center z-50">
               <Sheet>
                 <SheetTrigger className="hover:opacity-80 transition-opacity cursor-pointer">
@@ -137,37 +129,35 @@ export function Navbar() {
                     Navigation
                   </SheetTitle>
 
-                  <LayoutGroup id="mobile-nav">
-                    <div className="flex flex-col flex-1 space-y-8">
-                      {centerLinks.map((link) => {
-                        const isActive = pathname === link.href;
-                        return (
-                          <Link
-                            key={link.name}
-                            href={link.href}
+                  <div className="flex flex-col flex-1 space-y-8">
+                    {centerLinks.map((link) => {
+                      const isActive = pathname === link.href;
+                      return (
+                        <Link
+                          key={link.name}
+                          href={link.href}
+                          className={cn(
+                            "group flex items-center justify-between text-3xl font-medium transition-colors duration-300",
+                            isActive
+                              ? "text-[#866544]"
+                              : "text-gray-400 hover:text-[#866544]",
+                          )}
+                        >
+                          <span>{link.name}</span>
+                          <ArrowRight
                             className={cn(
-                              "group flex items-center justify-between text-3xl font-medium transition-colors duration-300",
+                              "h-8 w-8 transition-all duration-300 ease-out",
                               isActive
-                                ? "text-[#866544]"
-                                : "text-gray-400 hover:text-[#866544]",
+                                ? "translate-x-0 opacity-100"
+                                : "-translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100",
                             )}
-                          >
-                            <span>{link.name}</span>
-                            <ArrowRight
-                              className={cn(
-                                "h-8 w-8 transition-all duration-300 ease-out",
-                                isActive
-                                  ? "translate-x-0 opacity-100"
-                                  : "-translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100",
-                              )}
-                            />
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </LayoutGroup>
+                          />
+                        </Link>
+                      );
+                    })}
+                  </div>
 
-                  {/* Bottom Footer Area */}
+                  {/* Mobile Footer */}
                   <div className="mt-auto pt-8 border-t border-gray-100 flex flex-col gap-8">
                     <div className="flex flex-col gap-3 text-sm text-[#866544]/70 font-medium">
                       <a

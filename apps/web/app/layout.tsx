@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     template: '%s | KWWI',
   },
   description: 'Welcome to KWWI',
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ]
+  },
 };
 
 export default function RootLayout({
