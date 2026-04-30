@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import CertificationCarousel from "@/components/sections/CertificationCarousel";
 import MarketGlobe from "@/components/sections/MarketGlobe";
-import SectionHeader from "./_components/SectionHeader";
+import SectionHeader from "../../../components/sections/SectionHeader";
 import { statCards, processCards } from "./_data/_data";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function AboutPage() {
     <div className="flex flex-col min-h-screen">
 
       {/* Hero */}
-      <section className="relative h-screen flex items-center bg-cover bg-center" style={{ backgroundImage: "url('/about-hero-bg.png')" }}>
+      <section className="relative h-screen flex items-center bg-cover bg-center" style={{ backgroundImage: "url('/about-hero-bg.webp')" }}>
         <div className="absolute inset-0 bg-black/50 z-0" />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent z-0" />
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex h-full flex-col justify-center items-start text-white">

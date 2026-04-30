@@ -23,7 +23,7 @@ export default async function ProductsPage() {
       {/* Hero Section */}
       <section
         className="relative h-screen flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/hero-bg.png')" }}
+        style={{ backgroundImage: "url('/hero-bgwebp')" }}
       >
         {/* Black 20% Tint Overlay */}
         <div className="absolute inset-0 bg-black/500 z-0"></div>

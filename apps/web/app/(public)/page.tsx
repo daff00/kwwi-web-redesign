@@ -13,7 +13,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section
         className="relative h-screen flex items-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/hero-bg.png')" }}
+        style={{ backgroundImage: "url('/hero-bg.webp')" }}
       >
         {/* Black 50% Tint Overlay */}
         <div className="absolute inset-0 bg-black/50 z-0"></div>
