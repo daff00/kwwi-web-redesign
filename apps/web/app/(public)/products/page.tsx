@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BadgeCheck } from "lucide-react";
 import { api } from "@/lib/api";
 import Image from "next/image";
+import Link from "next/link";
+import SectionHeader from "@/components/sections/SectionHeader";
+import GradeClassification from "./_components/GradeClassification";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -12,6 +16,8 @@ export const metadata: Metadata = {
 export default async function ProductsPage() {
   let products: Awaited<ReturnType<typeof api.getProducts>> = [];
 
+  const Divider = () => <div className="w-full h-px bg-[#ECEAE8] mt-16" />;
+
   try {
     products = await api.getProducts();
   } catch {
@@ -20,27 +26,112 @@ export default async function ProductsPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
+      {/* Hero */}
       <section
-        className="relative h-screen flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/hero-bgwebp')" }}
+        className="relative h-screen flex items-center bg-cover bg-center"
+        style={{ backgroundImage: "url('/products-hero-bg.webp')" }}
       >
-        {/* Black 20% Tint Overlay */}
-        <div className="absolute inset-0 bg-black/500 z-0"></div>
-
-        {/* Seamless Gradient Fade at the Bottom */}
-        {/* Change from-[#866544] to from-white if your next section is actually white */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#866544] to-transparent z-0"></div>
-
-        {/* Content (z-10 keeps it above the tint and gradient) */}
-        <div className="relative z-10 text-center">
-          <h1 className="text-white text-5xl font-bold drop-shadow-md">
-            {" "}
-            Products Hero Section
+        <div className="absolute inset-0 bg-black/50 z-0" />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent z-0" />
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex h-full flex-col justify-center items-start text-white">
+          <div className="mb-4">
+            <Badge className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm">
+              Our Products & Custom Solutions
+            </Badge>
+          </div>
+          <h1 className="mb-1.75 max-w-6xl text-3xl font-semibold leading-tight md:text-6xl drop-shadow-lg">
+            Pine FJLB & Falcata Products & <br /> Custom Solutions
           </h1>
+          <p className="mb-8 max-w-4xl text-sm md:text-base text-white/90">
+            Merkusii Pine and Falcata finger-joint laminated boards engineered
+            for strength, stability, and global quality, with custom solutions
+            available.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            {[
+              { label: "Learn More", href: "/about" },
+              { label: "View Our Products", href: "#product-overview" },
+            ].map(({ label, href }) => (
+              <Badge
+                key={href}
+                asChild
+                className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm hover:bg-white/20 hover:text-white"
+              >
+                <Link href={href}>• {label}</Link>
+              </Badge>
+            ))}
+          </div>
         </div>
       </section>
-      {products.length === 0 ? (
+
+      {/* Company Overview */}
+      <section id="product-overview" className="bg-white pt-24 pb-7">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            badge="Overview"
+            title="Specializing in Merkusii Pine & Falcata FJLB"
+            extraDescription={
+              <>
+                <p className="text-[#866544] leading-relaxed text-lg mb-6">
+                  We hold wood legality certificate VLHH-36-12-0008,
+                  guaranteeing that all raw materials do not come from illegal
+                  logging.
+                </p>
+                <p className="text-[#866544] leading-relaxed text-lg mb-6">
+                  Our products are used for housing components and furniture,
+                  primarily in Japan and South Korea.
+                </p>
+              </>
+            }
+            rightContent={
+              <div className="flex flex-col gap-4 pt-13">
+                {[
+                  {
+                    title: "VLHH-36-12-0008 certified",
+                    subtitle: "Full timber legality traceability",
+                  },
+                  {
+                    title: "Housing & furniture applications",
+                    subtitle: "Japan & Korea primary markets",
+                  },
+                  {
+                    title: "F**** formaldehyde rating",
+                    subtitle: "Adhesive passed emission testing",
+                  },
+                ].map((item) => (
+                  <Card
+                    key={item.title}
+                    className="flex flex-row flex-center items-center gap-4 px-5 py-5 bg-[#FAF6F0] border border-[#866544]/20 rounded-2xl shadow-sm"
+                  >
+                    {/* Left gold strip */}
+                    <div className="w-1 self-stretch bg-[#CA9C60] rounded-full shrink-0" />
+
+                    {/* Icon */}
+                    <div className="bg-[#CA9C60] rounded-full p-2.5 shrink-0">
+                      <BadgeCheck className="text-white w-6 h-6" />
+                    </div>
+
+                    {/* Text */}
+                    <div className="flex flex-col">
+                      <p className="text-[#866544] font-bold text-sm">
+                        {item.title}
+                      </p>
+                      <p className="text-[#866544] text-sm leading-snug">
+                        {item.subtitle}
+                      </p>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            }
+          />
+          <Divider></Divider>
+        </div>
+      </section>
+
+      <GradeClassification />
+
+      {/* {products.length === 0 ? (
         <div className="text-center py-20">
           <Badge variant="secondary" className="text-base px-4 py-2">
             No products yet
@@ -72,7 +163,7 @@ export default async function ProductsPage() {
             </Card>
           ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 }

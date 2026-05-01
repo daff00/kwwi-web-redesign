@@ -64,7 +64,7 @@ export function Navbar() {
               <div className="relative w-[189px] h-[56px]">
                 <Image
                   src={
-                    navState === "white" ? "/logo-brownwebp" : "/logo-whitewebp"
+                    navState === "white" ? "/logo-brown.webp" : "/logo-white.webp"
                   }
                   alt="KWWI Logo"
                   fill

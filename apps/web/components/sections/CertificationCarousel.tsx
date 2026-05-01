@@ -6,8 +6,8 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 
 const certificateImages = [
-  { src: "/cert-1webp", alt: "SVLK Certificate" },
-  { src: "/cert-2webp", alt: "TLAS Certificate" },
+  { src: "/cert-1.webp", alt: "SVLK Certificate" },
+  { src: "/cert-2.webp", alt: "TLAS Certificate" },
 ];
 
 const certifications = [

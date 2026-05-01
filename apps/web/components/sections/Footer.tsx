@@ -20,7 +20,7 @@ export function Footer() {
             >
               <div className="relative w-[189px] h-[56px]">
                 <Image
-                  src="/logo-whitewebp"
+                  src="/logo-white.webp"
                   alt="KWWI Logo"
                   fill
                   className="object-contain object-left"
