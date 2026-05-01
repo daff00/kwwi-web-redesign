@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck, Ruler, Box, Droplets } from "lucide-react";
 import { api } from "@/lib/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -65,7 +65,7 @@ export default async function ProductsPage() {
       </section>
 
       {/* Company Overview */}
-      <section id="product-overview" className="bg-white pt-24 pb-7">
+      <section id="product-overview" className="bg-white pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             badge="Overview"
@@ -87,15 +87,15 @@ export default async function ProductsPage() {
               <div className="flex flex-col gap-4 pt-13">
                 {[
                   {
-                    title: "VLHH-36-12-0008 certified",
+                    title: "VLHH-36-12-0008 Certified",
                     subtitle: "Full timber legality traceability",
                   },
                   {
-                    title: "Housing & furniture applications",
+                    title: "Housing & Furniture Applications",
                     subtitle: "Japan & Korea primary markets",
                   },
                   {
-                    title: "F**** formaldehyde rating",
+                    title: "F**** Formaldehyde Rating",
                     subtitle: "Adhesive passed emission testing",
                   },
                 ].map((item) => (
@@ -125,12 +125,89 @@ export default async function ProductsPage() {
               </div>
             }
           />
-          <Divider></Divider>
+          <Divider />
         </div>
       </section>
 
-      <GradeClassification />
+      {/* FJLB Product Information */}
+      <section className="bg-white pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            badge="FJLB Product Information"
+            title="Specifications"
+          />
+          {/* Image + Specs row */}
+          <div className="flex flex-col md:flex-row gap-10 items-center mt-5">
+            {/* Left - Image */}
+            <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden bg-gradient-to-b from-[#C4A882] to-[#8B6F4E] flex items-center justify-center shrink-0">
+              <Image
+                src="/FJLB-img.webp"
+                alt="FJLB Product"
+                fill
+                className="object-contain"
+              />
+            </div>
 
+            {/* Right - Spec Cards */}
+            <div className="flex flex-col gap-4 w-full md:w-1/2">
+              {[
+                {
+                  icon: Ruler,
+                  title: "Dimensions",
+                  lines: [
+                    "Thickness: 8mm – 200mm (tolerance -0/+0.2)",
+                    "Width: 300mm – 1200mm (tolerance -0/+5)",
+                    "Length: 1000mm – 5000mm (tolerance -0/+10)",
+                  ],
+                },
+                {
+                  icon: Box,
+                  title: "Finger joint mark position",
+                  lines: ["On top · On side"],
+                },
+                {
+                  icon: Droplets,
+                  title: "Moisture content",
+                  lines: ["MC < 12%"],
+                },
+                {
+                  icon: Box,
+                  title: "F**** Rated Adhesive",
+                  lines: ["The adhesive used in finger joint and laminating processes passed formaldehyde emission tests and received F**** certification."],
+                },
+              ].map((spec) => (
+                <Card
+                  key={spec.title}
+                  className="flex flex-row flex-center items-center gap-4 px-5 py-5 bg-[#FAF6F0] border border-[#866544]/20 rounded-2xl shadow-sm"
+                >
+                  {/* Left gold strip */}
+                  <div className="w-1 self-stretch bg-[#CA9C60] rounded-full shrink-0" />
+                  {/* Icon bubble */}
+                  <div className="bg-[#CA9C60] rounded-full p-2.5 shrink-0">
+                    <spec.icon className="text-white w-6 h-6" />
+                  </div>
+                  {/* Text */}
+                  <div className="flex flex-col">
+                    <p className="text-[#866544] font-bold text-sm mb-1">
+                      {spec.title}
+                    </p>
+                    {spec.lines.map((line) => (
+                      <p
+                        key={line}
+                        className="text-[#866544] text-sm leading-snug"
+                      >
+                        {line}
+                      </p>
+                    ))}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+          <Divider />
+        </div>
+      </section>
+      <GradeClassification />
       {/* {products.length === 0 ? (
         <div className="text-center py-20">
           <Badge variant="secondary" className="text-base px-4 py-2">
