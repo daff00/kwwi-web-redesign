@@ -27,7 +27,7 @@ export default function HomePage() {
             Delivering consistent quality for furniture and construction industries across Japan, South Korea, and beyond. Built on experience, driven by quality since 1998.
           </p>
           <div className="flex flex-wrap gap-4">
-            {[{ label: "Learn More", href: "#company-overview" }, { label: "View Our Products", href: "/products" }].map(({ label, href }) => (
+            {[{ label: "Learn More", href: "/about" }, { label: "View Our Products", href: "/products" }].map(({ label, href }) => (
               <Badge key={href} asChild className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm hover:bg-white/20 hover:text-white">
                 <Link href={href}>• {label}</Link>
               </Badge>
