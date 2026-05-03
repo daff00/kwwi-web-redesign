@@ -87,7 +87,7 @@ export default function GradeClassification() {
   const row2 = grades.slice(3);
 
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Row 1 — 3 columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
