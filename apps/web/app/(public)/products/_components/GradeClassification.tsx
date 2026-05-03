@@ -27,7 +27,7 @@ const grades = [
     back: [],
     notAllowed:
       "Pin Hole, Dead Knots, Bluestain, Heart/Pulur, Rotten, Mold, Fungus, Resin, Split, Delamination, Undersize.",
-    image: null,
+    image: "/Grade-AP.webp",
   },
   {
     name: "GRADE BS",
@@ -36,7 +36,7 @@ const grades = [
     back: [],
     notAllowed:
       "Pin Hole, Dead Knots, Heart/Pulur, Rotten, Mold, Fungus, Resin, Split, Delamination, Undersize.",
-    image: null,
+    image: "/Grade-BS.webp",
   },
   {
     name: "GRADE C",
@@ -50,7 +50,7 @@ const grades = [
     back: [],
     notAllowed:
       "Pin Hole, Dead Knots, Rotten, Mold, Fungus, Resin, Split, Delamination, Undersize.",
-    image: null,
+    image: "/Grade-C.webp",
   },
   {
     name: "GRADE CD",
@@ -64,7 +64,7 @@ const grades = [
     ],
     back: [],
     notAllowed: "Rotten, Mold, Fungus, Split, Delamination, Undersize.",
-    image: null,
+    image: "/Grade-CD.webp",
   },
   {
     name: "GRADE D",
@@ -78,7 +78,7 @@ const grades = [
     ],
     back: [],
     notAllowed: "Rotten, Mold, Fungus, Split, Delamination, Undersize.",
-    image: null,
+    image: "/Grade-D.webp",
   },
 ];
 
