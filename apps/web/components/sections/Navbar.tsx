@@ -18,6 +18,7 @@ const centerLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Products", href: "/products" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
@@ -64,7 +65,9 @@ export function Navbar() {
               <div className="relative w-[189px] h-[56px]">
                 <Image
                   src={
-                    navState === "white" ? "/logo-brown.webp" : "/logo-white.webp"
+                    navState === "white"
+                      ? "/logo-brown.webp"
+                      : "/logo-white.webp"
                   }
                   alt="KWWI Logo"
                   fill
@@ -103,7 +106,7 @@ export function Navbar() {
           {/* Right Side */}
           <div className="flex items-center gap-4">
             <Link
-              href="/contact"
+              href="/contact?tab=quote"
               className={cn(
                 "hidden md:flex items-center justify-center font-bold w-[162px] h-[48px] rounded-[20px] transition-all duration-300",
                 navState === "white"
@@ -176,8 +179,8 @@ export function Navbar() {
                       </a>
                     </div>
                     <Link
-                      href="/contact"
-                      className="flex items-center justify-center w-full h-14 bg-[#866544] text-white font-bold rounded-3xl hover:bg-[#866544]/90 transition-colors text-lg shadow-md"
+                      href="/contact?tab=quote"
+                      className="flex items-center justify-center w-full h-14 bg-[#866544] text-white font-bold rounded-[20px] hover:bg-[#866544]/90 transition-colors text-lg shadow-md"
                     >
                       Get Quote
                     </Link>

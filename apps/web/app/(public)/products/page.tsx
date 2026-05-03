@@ -41,7 +41,7 @@ export default async function ProductsPage() {
             </Badge>
           </div>
           <h1 className="mb-1.75 max-w-6xl text-3xl font-semibold leading-tight md:text-6xl drop-shadow-lg">
-            Pine FJLB & Falcata Products & <br /> Custom Solutions
+            Pine Merkusii & Falcata FLJB <br/> Glutinous Rice Glue for FLJB
           </h1>
           <p className="mb-8 max-w-4xl text-sm md:text-base text-white/90">
             Merkusii Pine and Falcata finger-joint laminated boards engineered

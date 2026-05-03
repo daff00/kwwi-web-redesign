@@ -26,7 +26,7 @@ export default function AboutPage() {
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex h-full flex-col justify-center items-start text-white">
           <div className="mb-4">
             <Badge className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm">
-              Built on Experience, Driven by Quality
+              About PT Kalimas Wood Working Industry
             </Badge>
           </div>
           <h1 className="mb-1.75 max-w-6xl text-3xl font-semibold leading-tight md:text-6xl drop-shadow-lg">
