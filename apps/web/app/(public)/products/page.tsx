@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/sections/SectionHeader";
 import GradeClassification from "./_components/GradeClassification";
+import SpecialProduct from "./_components/SpecialProduct";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -173,7 +174,9 @@ export default async function ProductsPage() {
                 {
                   icon: Box,
                   title: "F**** Rated Adhesive",
-                  lines: ["The adhesive used in finger joint and laminating processes passed formaldehyde emission tests and received F**** certification."],
+                  lines: [
+                    "The adhesive used in finger joint and laminating processes passed formaldehyde emission tests and received F**** certification.",
+                  ],
                 },
               ].map((spec) => (
                 <Card
@@ -215,9 +218,31 @@ export default async function ProductsPage() {
             badge="Quality Grading"
             title="FJLB Grade Classification"
           />
-          </div>
-          <GradeClassification />
-        </section>
+        </div>
+        <GradeClassification />
+        <Divider />
+      </section>
+
+      {/* Special Product Information */}
+      <section className="bg-white pb-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            badge="Special Product"
+            title="Glutinous Rice Glue for FLJB"
+            extraDescription={
+              <>
+                <p className="text-[#866544] leading-relaxed text-lg mb-6">
+                  We also produce special FJLB that use glutinous rice glue as
+                  adhesive. This special product is used as cabinets by our
+                  customer in Japan. Ideal for applications requiring natural
+                  bonding agents.
+                </p>
+              </>
+            }
+          />
+          <SpecialProduct />
+        </div>
+      </section>
     </div>
   );
 }
