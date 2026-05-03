@@ -29,21 +29,21 @@ export default async function ProductsPage() {
     <div className="flex flex-col min-h-screen">
       {/* Hero */}
       <section
-        className="relative h-screen flex items-center bg-cover bg-center"
+        className="relative min-h-[100svh] flex items-center bg-cover bg-center"
         style={{ backgroundImage: "url('/products-hero-bg.webp')" }}
       >
         <div className="absolute inset-0 bg-black/50 z-0" />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent z-0" />
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex h-full flex-col justify-center items-start text-white">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-32 lg:py-36 flex min-h-[100svh] flex-col justify-center items-start text-white">
           <div className="mb-4">
             <Badge className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm">
               Our Products & Custom Solutions
             </Badge>
           </div>
-          <h1 className="mb-1.75 max-w-6xl text-3xl font-semibold leading-tight md:text-6xl drop-shadow-lg">
+          <h1 className="mb-1.75 max-w-6xl text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl lg:text-6xl drop-shadow-lg">
             Pine Merkusii & Falcata FLJB <br/> Glutinous Rice Glue for FLJB
           </h1>
-          <p className="mb-8 max-w-4xl text-sm md:text-base text-white/90">
+          <p className="mb-8 max-w-4xl text-sm sm:text-base text-white/90">
             Merkusii Pine and Falcata finger-joint laminated boards engineered
             for strength, stability, and global quality, with custom solutions
             available.
@@ -138,9 +138,9 @@ export default async function ProductsPage() {
             title="Specifications"
           />
           {/* Image + Specs row */}
-          <div className="flex flex-col md:flex-row gap-10 items-center mt-5">
+          <div className="flex flex-col lg:flex-row gap-10 items-center mt-5">
             {/* Left - Image */}
-            <div className="relative w-full md:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden bg-gradient-to-b from-[#C4A882] to-[#8B6F4E] flex items-center justify-center shrink-0">
+            <div className="relative w-full lg:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden bg-gradient-to-b from-[#C4A882] to-[#8B6F4E] flex items-center justify-center shrink-0">
               <Image
                 src="/FJLB-img.webp"
                 alt="FJLB Product"
@@ -150,7 +150,7 @@ export default async function ProductsPage() {
             </div>
 
             {/* Right - Spec Cards */}
-            <div className="flex flex-col gap-4 w-full md:w-1/2">
+            <div className="flex flex-col gap-4 w-full lg:w-1/2">
               {[
                 {
                   icon: Ruler,

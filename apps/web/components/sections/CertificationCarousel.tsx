@@ -41,9 +41,9 @@ export default function CertificationCarousel() {
   return (
     <section className="bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center gap-10">
+        <div className="flex flex-col lg:flex-row items-center gap-10">
           {/* Carousel */}
-          <div className="relative w-full md:w-1/2 aspect-[4/3] bg-[#F5F5F0] rounded-2xl overflow-hidden flex items-center justify-center border border-[#866544]/20 shadow-sm">
+          <div className="relative w-full lg:w-1/2 aspect-[4/3] bg-[#F5F5F0] rounded-2xl overflow-hidden flex items-center justify-center border border-[#866544]/20 shadow-sm">
             {/* Placeholder — replace with <Image> when ready */}
             <Image
               src={certificateImages[current].src}
@@ -83,7 +83,7 @@ export default function CertificationCarousel() {
           </div>
 
           {/* Certification Cards */}
-          <div className="flex flex-col gap-5 w-full md:w-1/2">
+          <div className="flex flex-col gap-5 w-full lg:w-1/2">
             {certifications.map((cert) => (
               <Card
                 key={cert.title}

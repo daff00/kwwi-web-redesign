@@ -78,7 +78,7 @@ export function Navbar() {
           </div>
 
           {/* Center Navigation */}
-          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-8">
+          <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 space-x-8">
             {centerLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -108,7 +108,7 @@ export function Navbar() {
             <Link
               href="/contact?tab=quote"
               className={cn(
-                "hidden md:flex items-center justify-center font-bold w-[162px] h-[48px] rounded-[20px] transition-all duration-300",
+                "hidden lg:flex items-center justify-center font-bold w-[162px] h-[48px] rounded-[20px] transition-all duration-300",
                 navState === "white"
                   ? "bg-[#866544] text-white hover:bg-[#866544]/90"
                   : "bg-[#f4f4f4]/[0.21] border border-[#ffffff]/[0.21] text-white hover:bg-[#f4f4f4]/[0.3]",
@@ -118,7 +118,7 @@ export function Navbar() {
             </Link>
 
             {/* Mobile Menu */}
-            <div className="md:hidden flex items-center z-50">
+            <div className="lg:hidden flex items-center z-50">
               <Sheet>
                 <SheetTrigger className="hover:opacity-80 transition-opacity cursor-pointer">
                   <Menu className="h-6 w-6" />

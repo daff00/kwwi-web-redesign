@@ -10,7 +10,7 @@ interface SectionHeaderProps {
 
 export default function SectionHeader({ badge, title, description, extraDescription, rightContent }: SectionHeaderProps) {
   return (
-    <div className={`flex flex-col ${rightContent ? "md:flex-row gap-16 items-start" : ""}`}>
+    <div className={`flex flex-col ${rightContent ? "lg:flex-row gap-16 items-start" : ""}`}>
       {/* Left side — always present */}
       <div className="flex-1">
         <Badge className="rounded-[15px] bg-white/10 text-[#866544] border-[#866544] backdrop-blur px-8 py-4 text-sm mb-8">
@@ -25,9 +25,7 @@ export default function SectionHeader({ badge, title, description, extraDescript
       </div>
 
       {/* Right side — only renders if provided */}
-      {rightContent && (
-        <div className="flex-1">{rightContent}</div>
-      )}
+      {rightContent && <div className="flex-1">{rightContent}</div>}
     </div>
   );
 }

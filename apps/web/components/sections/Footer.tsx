@@ -10,9 +10,9 @@ export function Footer() {
   return (
     <footer className="bg-[#866544] text-white pt-16 pb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-12 mb-12">
-          {/* Column 1: Brand & Description (5 Columns) */}
-          <div className="flex flex-col gap-6 md:col-span-12 lg:col-span-5 lg:pr-12 pb-8 md:pb-0">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-x-8 mb-12">
+          {/* Column 1: Brand & Description */}
+          <div className="flex flex-col gap-6 lg:col-span-5 lg:pr-12">
             <Link 
               href="/" 
               className="inline-block"
@@ -39,8 +39,8 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Column 2: Headquarters (4 Columns) */}
-          <div className="flex flex-col gap-6 md:col-span-6 lg:col-span-4 md:pl-8 pt-8 md:pt-0">
+          {/* Column 2: Headquarters */}
+          <div className="flex flex-col gap-6 lg:col-span-4 lg:pl-8">
             <h3 className="text-xl font-bold tracking-wide">Headquarters</h3>
             <div className="flex flex-col gap-4 text-white/80">
               <div className="flex items-start gap-3">
@@ -71,10 +71,10 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 3: Navigation (3 Columns) */}
-          <div className="flex flex-col gap-6 md:col-span-6 lg:col-span-3 md:pl-8 pt-8 md:pt-0 items-end">
+          {/* Column 3: Navigation */}
+          <div className="flex flex-col gap-6 lg:col-span-3 lg:pl-8 lg:items-end">
             <h3 className="text-xl font-bold tracking-wide">Navigation</h3>
-            <nav className="flex flex-col gap-4 items-end">
+            <nav className="flex flex-col gap-4 items-start lg:items-end">
               {[
                 { name: "Home", href: "/" },
                 { name: "About Us", href: "/about" },

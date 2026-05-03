@@ -20,19 +20,19 @@ export default function AboutPage() {
     <div className="flex flex-col min-h-screen">
 
       {/* Hero */}
-      <section className="relative h-screen flex items-center bg-cover bg-center" style={{ backgroundImage: "url('/about-hero-bg.webp')" }}>
+      <section className="relative min-h-[100svh] flex items-center bg-cover bg-center" style={{ backgroundImage: "url('/about-hero-bg.webp')" }}>
         <div className="absolute inset-0 bg-black/50 z-0" />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent z-0" />
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex h-full flex-col justify-center items-start text-white">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-32 lg:py-36 flex min-h-[100svh] flex-col justify-center items-start text-white">
           <div className="mb-4">
             <Badge className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm">
               About PT Kalimas Wood Working Industry
             </Badge>
           </div>
-          <h1 className="mb-1.75 max-w-6xl text-3xl font-semibold leading-tight md:text-6xl drop-shadow-lg">
+          <h1 className="mb-1.75 max-w-6xl text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl lg:text-6xl drop-shadow-lg">
             Pine FJLB & Falcata Specialist <br /> Since 1998
           </h1>
-          <p className="mb-8 max-w-4xl text-sm md:text-base text-white/90">
+          <p className="mb-8 max-w-4xl text-sm sm:text-base text-white/90">
             Since 1998, we have delivered consistent, export-grade quality through advanced production processes and strict quality control.
           </p>
           <div className="flex flex-wrap gap-4">
@@ -66,7 +66,7 @@ export default function AboutPage() {
       {/* Stat Cards */}
       <section className="bg-white pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {statCards.map(({ number, icon: Icon, title, description, footer }) => (
               <Card key={number} className="relative overflow-hidden bg-[#FAF6F0] border border-[#866544]/20 shadow-sm text-center px-8 py-10 flex flex-col items-center gap-4 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#CA9C60]/60 hover:bg-[#F5EDE0] group cursor-pointer">
                 <div className="absolute top-0 left-0 w-full h-1.5 bg-[#CA9C60]" />
@@ -105,7 +105,7 @@ export default function AboutPage() {
       {/* Process Cards */}
       <section className="bg-white pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {processCards.map((item) => (
               <Card key={item.number} className="relative overflow-hidden bg-[#EEEAE4] border border-[#866544]/20 shadow-sm flex flex-col transition-all duration-300 ease-in-out group cursor-pointer hover:-translate-y-1 hover:border-[#CA9C60]/60 hover:bg-[#E8E2D8]">
                 <div className="absolute top-0 left-0 w-full h-1.5 bg-[#CA9C60]" />
