@@ -4,6 +4,26 @@ type FetchOptions = RequestInit & {
   token?: string;
 };
 
+type ContactSubmission = {
+  formType: "general_inquiry" | "get_quote";
+  tab?: "inquiry" | "quote";
+  name: string;
+  company?: string;
+  email: string;
+  phone?: string;
+  country?: string;
+  port?: string;
+  productTypes?: string[];
+  customSpec?: string;
+  thickness?: string;
+  width?: string;
+  length?: string;
+  quantity?: string;
+  delivery?: string;
+  incoterm?: string;
+  message: string;
+};
+
 async function apiFetch<T>(
   endpoint: string,
   options: FetchOptions = {}
@@ -62,9 +82,9 @@ export const api = {
     }),
 
   // Contact
-  submitContact: (data: { name: string; email: string; message: string }) =>
-    apiFetch<{ message: string }>('/api/contact', {
-      method: 'POST',
+  submitContact: (data: ContactSubmission) =>
+    apiFetch<{ message: string }>("/api/contact", {
+      method: "POST",
       body: JSON.stringify(data),
     }),
 };

@@ -1,5 +1,7 @@
 "use client";
 
+import { toast } from "sonner";
+import { api } from "@/lib/api";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +18,18 @@ import {
 } from "@/components/ui/select";
 import { MapPin, Mail, Phone, MessageCircle, Printer } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const countryLabels: Record<string, string> = {
+  jp: "Japan",
+  kr: "South Korea",
+  id: "Indonesia",
+  other: "Other",
+};
+
+const toOptionalString = (value: string) => {
+  const trimmed = value.trim();
+  return trimmed.length ? trimmed : undefined;
+};
 
 const tabs = ["General Inquiry", "Get Quote"];
 
@@ -130,16 +144,45 @@ export default function ContactClient() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          tab: activeTab === 1 ? "quote" : "inquiry",
-        }),
+      const payload = {
+        formType: activeTab === 1 ? "get_quote" : "general_inquiry",
+        tab: activeTab === 1 ? "quote" : "inquiry",
+        name: form.name.trim(),
+        company: toOptionalString(form.company),
+        email: form.email.trim(),
+        phone: toOptionalString(form.phone),
+        country:
+          form.country === "other"
+            ? toOptionalString(form.countryOther)
+            : countryLabels[form.country],
+        port: activeTab === 1 ? toOptionalString(form.port) : undefined,
+        productTypes: activeTab === 1 ? form.productTypes : [],
+        customSpec:
+          activeTab === 1 ? toOptionalString(form.customSpec) : undefined,
+        thickness:
+          activeTab === 1 ? toOptionalString(form.thickness) : undefined,
+        width: activeTab === 1 ? toOptionalString(form.width) : undefined,
+        length: activeTab === 1 ? toOptionalString(form.length) : undefined,
+        quantity: activeTab === 1 ? toOptionalString(form.quantity) : undefined,
+        delivery: activeTab === 1 ? toOptionalString(form.delivery) : undefined,
+        incoterm: activeTab === 1 ? toOptionalString(form.incoterm) : undefined,
+        message: form.message.trim(),
+      };
+
+      await api.submitContact(payload);
+
+      toast.success("Message sent", {
+        description: "We received your inquiry and will reply soon.",
       });
-      if (res.ok) setSent(true);
+
+      setSent(true);
+    } catch (error) {
+      toast.error("Failed to send message", {
+        description:
+          error instanceof Error ? error.message : "Please try again later.",
+      });
     } finally {
       setLoading(false);
     }
