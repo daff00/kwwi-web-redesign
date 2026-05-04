@@ -16,7 +16,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MapPin, Mail, Phone, MessageCircle, Printer } from "lucide-react";
+import {
+  Loader2,
+  MapPin,
+  Mail,
+  Phone,
+  MessageCircle,
+  Printer,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const countryLabels: Record<string, string> = {
@@ -144,6 +151,9 @@ export default function ContactClient() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const loadingToastId = toast.loading("Sending message...", {
+      description: "Please wait while we deliver your inquiry.",
+    });
 
     try {
       const payload = {
@@ -173,12 +183,14 @@ export default function ContactClient() {
 
       await api.submitContact(payload);
 
+      toast.dismiss(loadingToastId);
       toast.success("Message sent", {
         description: "We received your inquiry and will reply soon.",
       });
 
       setSent(true);
     } catch (error) {
+      toast.dismiss(loadingToastId);
       toast.error("Failed to send message", {
         description:
           error instanceof Error ? error.message : "Please try again later.",
@@ -708,11 +720,16 @@ export default function ContactClient() {
                     disabled={loading}
                     className="w-full h-12 bg-[#5C3D1E] hover:bg-[#5C3D1E]/90 text-white font-bold rounded-xl text-sm"
                   >
-                    {loading
-                      ? "Sending..."
-                      : activeTab === 1
-                        ? "Submit Quote Request"
-                        : "Send Message"}
+                    {loading ? (
+                      <span className="inline-flex items-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Sending...
+                      </span>
+                    ) : activeTab === 1 ? (
+                      "Submit Quote Request"
+                    ) : (
+                      "Send Message"
+                    )}
                   </Button>
                 )}
 
@@ -729,7 +746,7 @@ export default function ContactClient() {
               {/* Contact + Locations combined card */}
               <Card className="bg-white border border-[#C8B89A]/60 rounded-2xl p-6 shadow-sm flex flex-col gap-6">
                 {/* Header */}
-                <div className="flex items-center gap-2 pb-3 border-b border-[#EDE9E3]">
+                <div className="flex items-center gap-2">
                   <div className="bg-[#CA9C60] rounded-lg p-1.5 shrink-0">
                     <Mail className="text-white w-3.5 h-3.5" />
                   </div>
@@ -738,7 +755,7 @@ export default function ContactClient() {
                   </p>
                 </div>
 
-                {/* Primary contact info (keep ONLY key channel) */}
+                {/* Primary contact info (keep ONLY key channel)
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-3">
                     <div className="bg-[#FAF6F0] border border-[#C8B89A]/40 rounded-lg p-2 shrink-0">
@@ -754,7 +771,7 @@ export default function ContactClient() {
                       </a>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Divider */}
                 <div className="border-t border-[#EDE9E3]" />
