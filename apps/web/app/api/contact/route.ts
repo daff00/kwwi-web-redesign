@@ -84,8 +84,6 @@ export async function POST(request: NextRequest) {
       accentSoft: "rgba(134, 101, 68, 0.12)",
     };
 
-    const logoUrl = new URL("/logo-brown.webp", getBaseUrl()).toString();
-
     const introTitle = isQuote
       ? "A new quote request has been submitted"
       : "A new inquiry has been submitted";
@@ -130,111 +128,158 @@ export async function POST(request: NextRequest) {
         ];
 
     const html = `
-      <div style="margin: 0; padding: 0; background: ${theme.bg};">
-        <div style="max-width: 720px; margin: 0 auto; padding: 24px 16px; font-family: 'Segoe UI', Roboto, Arial, sans-serif; color: ${theme.text};">
-          <div style="background: ${theme.bg}; border: 1px solid ${theme.border}; border-radius: 18px; overflow: hidden; box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);">
-            <div style="padding: 28px 32px; background: linear-gradient(180deg, ${theme.soft} 0%, ${theme.bg} 100%); border-bottom: 1px solid ${theme.border};">
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
-                <div style="display: flex; align-items: center; gap: 14px;">
-                  <img src="${logoUrl}" alt="KWWI" width="136" style="display: block; height: auto;" />
-                  <div style="width: 1px; height: 32px; background: ${theme.border};"></div>
-                  <div>
-                    <div style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: ${theme.accent}; font-weight: 700; margin-bottom: 4px;">
-                      KWWI Contact Mail
-                    </div>
-                    <div style="font-size: 20px; line-height: 1.2; font-weight: 700; color: ${theme.text};">
-                      ${isQuote ? "Quote Request" : "General Inquiry"}
-                    </div>
-                  </div>
-                </div>
-                <div style="padding: 10px 14px; border-radius: 999px; background: ${theme.accentSoft}; color: ${theme.accent}; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">
-                  ${subject}
-                </div>
-              </div>
-            </div>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${subject}</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #F3EFE9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F3EFE9; padding: 48px 20px;">
+          <tr>
+            <td align="center">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px;">
 
-            <div style="padding: 32px;">
-              <div style="margin-bottom: 24px;">
-                <div style="font-size: 22px; line-height: 1.25; font-weight: 700; color: ${theme.text}; margin-bottom: 8px;">
-                  ${introTitle}
-                </div>
-                <div style="font-size: 14px; line-height: 1.7; color: ${theme.muted};">
-                  ${introText}
-                </div>
-              </div>
+                <tr>
+                  <td style="height: 4px; background-color: #866544; border-radius: 4px 4px 0 0;"></td>
+                </tr>
 
-              <div style="display: grid; grid-template-columns: 1fr; gap: 18px; margin-bottom: 24px;">
-                <div style="border: 1px solid ${theme.border}; border-radius: 16px; overflow: hidden;">
-                  <div style="padding: 14px 18px; background: ${theme.soft}; border-bottom: 1px solid ${theme.border}; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: ${theme.accent};">
-                    Contact Details
-                  </div>
-                  <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
-                    <tbody>
-                      ${summaryRows
-                        .map(
-                          (row, index) => `
-                            <tr>
-                              <td style="padding: 14px 18px; width: 32%; border-top: ${index === 0 ? "none" : `1px solid ${theme.border}`}; color: ${theme.muted}; font-size: 13px; font-weight: 600;">
-                                ${escapeHtml(row.label)}
-                              </td>
-                              <td style="padding: 14px 18px; border-top: ${index === 0 ? "none" : `1px solid ${theme.border}`}; color: ${theme.text}; font-size: 14px; line-height: 1.5;">
-                                ${row.isLink ? `<a href="mailto:${escapeHtml(body.email)}" style="color: ${theme.accent}; text-decoration: none; font-weight: 600;">${escapeHtml(row.value)}</a>` : escapeHtml(row.value)}
-                              </td>
-                            </tr>
-                          `
-                        )
-                        .join("")}
-                    </tbody>
-                  </table>
-                </div>
-
-                <div style="border: 1px solid ${theme.border}; border-radius: 16px; overflow: hidden;">
-                  <div style="padding: 14px 18px; background: ${theme.soft}; border-bottom: 1px solid ${theme.border}; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: ${theme.accent};">
-                    ${isQuote ? "Quote Details" : "Inquiry Details"}
-                  </div>
-                  <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
-                    <tbody>
+                <tr>
+                  <td style="background-color: #3D2B1F; padding: 32px 36px; border-radius: 0;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
-                        <td style="padding: 14px 18px; width: 32%; color: ${theme.muted}; font-size: 13px; font-weight: 600; vertical-align: top;">
-                          Message
+                        <td>
+                          <p style="margin: 0 0 4px 0; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #CA9C60;">
+                            PT Kalimas Wood Working Industry
+                          </p>
+                          <h1 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 700; color: #FFFFFF; line-height: 1.3;">
+                            ${introTitle}
+                          </h1>
+                          <p style="margin: 0; font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5;">
+                            ${introText}
+                          </p>
                         </td>
-                        <td style="padding: 14px 18px; color: ${theme.text}; font-size: 14px; line-height: 1.7; vertical-align: top;">
-                          <div style="background: ${theme.soft}; border: 1px solid ${theme.border}; border-radius: 12px; padding: 16px;">
-                            ${formatBodyText(body.message)}
-                          </div>
+                        <td align="right" valign="top" style="padding-left: 20px; white-space: nowrap;">
+                          <span style="display: inline-block; padding: 6px 14px; background-color: #CA9C60; color: #FFFFFF; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 20px;">
+                            ${isQuote ? "Quote Request" : "General Inquiry"}
+                          </span>
                         </td>
                       </tr>
-                      ${specRows
-                        .map(
-                          (row) => `
-                            <tr>
-                              <td style="padding: 14px 18px; width: 32%; color: ${theme.muted}; font-size: 13px; font-weight: 600; vertical-align: top; border-top: 1px solid ${theme.border};">
-                                ${escapeHtml(row.label)}
+                    </table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="background-color: #FFFFFF; padding: 36px; border: 1px solid #E8E0D5; border-top: none;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 28px;">
+                      <tr>
+                        <td style="padding-bottom: 12px;">
+                          <p style="margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #866544;">
+                            Contact Information
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="border: 1px solid #EDE8E0; border-radius: 6px; overflow: hidden;">
+                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                            ${summaryRows
+                              .map(
+                                (row, index) => `
+                                <tr style="background-color: ${index % 2 === 0 ? "#FDFCFB" : "#FFFFFF"};">
+                                  <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: ${index === summaryRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #9A8878; font-size: 13px; font-weight: 600;">
+                                    ${escapeHtml(row.label)}
+                                  </td>
+                                  <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: ${index === summaryRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #2C1A0E; font-size: 13px;">
+                                    ${row.isLink
+                                      ? `<a href="mailto:${escapeHtml(body.email)}" style="color: #866544; text-decoration: none; font-weight: 600;">${escapeHtml(row.value)}</a>`
+                                      : escapeHtml(row.value)}
+                                  </td>
+                                </tr>
+                              `
+                              )
+                              .join("")}
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 28px;">
+                      <tr>
+                        <td style="height: 1px; background-color: #EDE8E0;"></td>
+                      </tr>
+                    </table>
+
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-bottom: 12px;">
+                          <p style="margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #866544;">
+                            ${isQuote ? "Request Details" : "Inquiry Details"}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="border: 1px solid #EDE8E0; border-radius: 6px; overflow: hidden;">
+                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr style="background-color: #FAF6F0;">
+                              <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: 1px solid #EDE8E0; color: #9A8878; font-size: 13px; font-weight: 600;">
+                                Message
                               </td>
-                              <td style="padding: 14px 18px; color: ${theme.text}; font-size: 14px; line-height: 1.7; vertical-align: top; border-top: 1px solid ${theme.border};">
-                                ${escapeHtml(row.value)}
+                              <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: 1px solid #EDE8E0; color: #2C1A0E; font-size: 13px; line-height: 1.7;">
+                                ${formatBodyText(body.message)}
                               </td>
                             </tr>
-                          `
-                        )
-                        .join("")}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
 
-              <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; padding-top: 4px;">
-                <div style="font-size: 12px; color: ${theme.muted};">
-                  Received from the KWWI website contact form.
-                </div>
-                <div style="font-size: 12px; color: ${theme.muted};">
-                  ${isQuote ? "Priority: Quote request" : "Priority: General inquiry"}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                            ${specRows
+                              .map(
+                                (row, index) => `
+                                <tr style="background-color: ${index % 2 === 0 ? "#FDFCFB" : "#FFFFFF"};">
+                                  <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: ${index === specRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #9A8878; font-size: 13px; font-weight: 600;">
+                                    ${escapeHtml(row.label)}
+                                  </td>
+                                  <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: ${index === specRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #2C1A0E; font-size: 13px;">
+                                    ${escapeHtml(row.value)}
+                                  </td>
+                                </tr>
+                              `
+                              )
+                              .join("")}
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="background-color: #3D2B1F; padding: 20px 36px; border-radius: 0 0 4px 4px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td>
+                          <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6;">
+                            This message was submitted via the KWWI website contact form.
+                            Reply directly to this email to respond to the sender.
+                          </p>
+                        </td>
+                        <td align="right" valign="middle" style="padding-left: 20px; white-space: nowrap;">
+                          <p style="margin: 0; font-size: 11px; font-weight: 700; color: #CA9C60; letter-spacing: 0.08em; text-transform: uppercase;">
+                            KWWI
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="height: 3px; background-color: #CA9C60; border-radius: 0 0 4px 4px;"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
     `;
 
     const transporter = createMailer();
@@ -252,10 +297,12 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Internal server error";
+    console.error("[contact] email send failed:", err);
+    const message =
+      err instanceof Error ? err.message : "Internal server error";
     return NextResponse.json(
       { error: message },
-      { status: message === "Internal server error" ? 500 : 400 }
+      { status: 500 }
     );
   }
 }
