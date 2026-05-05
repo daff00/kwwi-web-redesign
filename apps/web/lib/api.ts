@@ -1,10 +1,10 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 type FetchOptions = RequestInit & {
   token?: string;
 };
 
-type ContactSubmission = {
+export type ContactSubmission = {
   formType: "general_inquiry" | "get_quote";
   tab?: "inquiry" | "quote";
   name: string;
@@ -24,6 +24,70 @@ type ContactSubmission = {
   message: string;
 };
 
+type ApiErrorResponse = {
+  error?: string;
+  details?: unknown;
+  message?: string;
+};
+
+function formatApiError(payload: ApiErrorResponse, status: number) {
+  if (payload.error === "Validation error" && payload.details) {
+    if (
+      typeof payload.details === "object" &&
+      payload.details !== null &&
+      !Array.isArray(payload.details)
+    ) {
+      const entries = Object.entries(payload.details as Record<
+        string,
+        unknown
+      >);
+      const fieldMessages = entries.flatMap(([field, messages]) => {
+        if (!Array.isArray(messages)) return [];
+        return messages
+          .filter((message): message is string => typeof message === "string")
+          .map((message) =>
+            field === "message" ? message : `${field}: ${message}`
+          );
+      });
+
+      if (fieldMessages.length > 0) {
+        return fieldMessages
+          .map((message) => {
+            const [rawField, ...rest] = message.includes(": ")
+              ? message.split(": ")
+              : ["", message];
+            const fieldLabel = rawField
+              ? rawField.charAt(0).toUpperCase() + rawField.slice(1)
+              : "Message";
+            const detail = rest.join(": ");
+
+            return `${fieldLabel}\n${detail || message}`;
+          })
+          .join("\n\n");
+      }
+    }
+
+    return "Please check the highlighted fields.";
+  }
+
+  if (typeof payload.details === "string" && payload.details.trim()) {
+    return payload.details;
+  }
+
+  return payload.message || payload.error || `HTTP ${status}`;
+}
+
+async function readErrorPayload(res: Response): Promise<ApiErrorResponse> {
+  const contentType = res.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    return (await res.json().catch(() => ({}))) as ApiErrorResponse;
+  }
+
+  const text = await res.text().catch(() => "");
+  return text ? { error: text } : {};
+}
+
 async function apiFetch<T>(
   endpoint: string,
   options: FetchOptions = {}
@@ -42,8 +106,8 @@ async function apiFetch<T>(
   });
 
   if (!res.ok) {
-    const error = await res.json().catch(() => ({ error: 'Unknown error' }));
-    throw new Error(error.error || `HTTP ${res.status}`);
+    const error = await readErrorPayload(res);
+    throw new Error(formatApiError(error, res.status));
   }
 
   // 204 No Content
@@ -53,34 +117,6 @@ async function apiFetch<T>(
 }
 
 export const api = {
-  // Products
-  getProducts: () =>
-    apiFetch<{ id: string; name: string; description: string; image_url: string | null; created_at: string; updated_at: string }[]>('/api/products'),
-
-  getProductById: (id: string) =>
-    apiFetch<{ id: string; name: string; description: string; image_url: string | null; created_at: string; updated_at: string }>(`/api/products/${id}`),
-
-  createProduct: (formData: FormData, token: string) =>
-    apiFetch('/api/products', {
-      method: 'POST',
-      body: formData,
-      headers: { Authorization: `Bearer ${token}` },
-      // Don't set Content-Type — browser sets it with boundary for FormData
-    }),
-
-  updateProduct: (id: string, data: Record<string, string>, token: string) =>
-    apiFetch(`/api/products/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(data),
-      token,
-    }),
-
-  deleteProduct: (id: string, token: string) =>
-    apiFetch(`/api/products/${id}`, {
-      method: 'DELETE',
-      token,
-    }),
-
   // Contact
   submitContact: (data: ContactSubmission) =>
     apiFetch<{ message: string }>("/api/contact", {

@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { geoMercator, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
-import type { Topology, GeometryCollection } from "topojson-client";
 
 const HIGHLIGHTED: Record<string, { name: string; role: string }> = {
   "360": { name: "Indonesia", role: "Local Market & Manufacturing Base" },
@@ -35,8 +34,8 @@ export default function MarketMap() {
   useEffect(() => {
     fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
       .then((res) => res.json())
-      .then((topology: Topology) => {
-        const geo = feature(topology, topology.objects.countries as GeometryCollection);
+      .then((topology: any) => {
+        const geo = feature(topology, topology.objects.countries as any);
         setCountries((geo as any).features);
       });
   }, []);

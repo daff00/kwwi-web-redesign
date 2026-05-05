@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { BadgeCheck, Ruler, Box, Droplets } from "lucide-react";
-import { api } from "@/lib/api";
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/sections/SectionHeader";
@@ -15,15 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProductsPage() {
-  let products: Awaited<ReturnType<typeof api.getProducts>> = [];
-
   const Divider = () => <div className="w-full h-px bg-[#ECEAE8] mt-16" />;
-
-  try {
-    products = await api.getProducts();
-  } catch {
-    // Server not running or no products yet — show empty state
-  }
 
   return (
     <div className="flex flex-col min-h-screen">

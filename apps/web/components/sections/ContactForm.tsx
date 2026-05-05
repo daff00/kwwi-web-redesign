@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { toast } from 'sonner';
 import { contactSchema, type ContactFormInput } from '@kwwi/shared';
 import { api } from '@/lib/api';
@@ -18,7 +19,7 @@ export default function ContactForm() {
     control,
     handleSubmit,
     reset,
-  } = useForm<ContactFormInput>({
+  } = useForm<z.input<typeof contactSchema>, any, ContactFormInput>({
     resolver: zodResolver(contactSchema),
     defaultValues: { name: '', email: '', message: '' },
   });
@@ -30,7 +31,13 @@ export default function ContactForm() {
       toast.success('Message sent! We will be in touch soon.');
       reset();
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Something went wrong');
+      toast.error('Failed to send message', {
+        description: (
+          <div className="whitespace-pre-line">
+            {err instanceof Error ? err.message : 'Something went wrong'}
+          </div>
+        ),
+      });
     } finally {
       setIsSubmitting(false);
     }

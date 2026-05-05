@@ -25,6 +25,7 @@ import {
   Printer,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { ContactSubmission } from "@/lib/api";
 
 const countryLabels: Record<string, string> = {
   jp: "Japan",
@@ -156,7 +157,7 @@ export default function ContactClient() {
     });
 
     try {
-      const payload = {
+      const payload: ContactSubmission = {
         formType: activeTab === 1 ? "get_quote" : "general_inquiry",
         tab: activeTab === 1 ? "quote" : "inquiry",
         name: form.name.trim(),
@@ -192,8 +193,13 @@ export default function ContactClient() {
     } catch (error) {
       toast.dismiss(loadingToastId);
       toast.error("Failed to send message", {
-        description:
-          error instanceof Error ? error.message : "Please try again later.",
+        description: (
+          <div className="whitespace-pre-line">
+            {error instanceof Error
+              ? error.message
+              : "Please try again later."}
+          </div>
+        ),
       });
     } finally {
       setLoading(false);
