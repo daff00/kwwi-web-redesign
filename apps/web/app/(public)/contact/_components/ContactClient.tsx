@@ -210,12 +210,12 @@ export default function ContactClient() {
     <div className="flex flex-col min-h-screen">
       {/* Hero */}
       <section
-        className="relative min-h-[42rem] flex items-center bg-cover bg-center"
+        className="relative min-h-[100dvh] overflow-hidden flex items-center bg-[#866544] bg-cover bg-center"
         style={{ backgroundImage: "url('/contact-hero-bg.webp')" }}
       >
         <div className="absolute inset-0 bg-black/50 z-0" />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent z-0" />
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-28 lg:py-32">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-28 lg:py-32 w-full">
           <Badge className="rounded-full bg-white/10 text-white border-white/30 backdrop-blur px-4 py-1.5 text-xs mb-4">
             Contact PT Kalimas Wood Working Industry
           </Badge>
