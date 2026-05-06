@@ -12,7 +12,7 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
       {/* Hero */}
       <section
-        className="relative min-h-[100dvh] overflow-hidden flex items-center bg-[#866544] bg-cover bg-center"
+        className="relative min-h-screen overflow-hidden flex items-center bg-[#866544] bg-cover bg-center"
         style={{ backgroundImage: "url('/hero-bg.webp')" }}
       >
         <div className="absolute inset-0 bg-black/50 z-0" />
