@@ -74,15 +74,6 @@ export async function POST(request: NextRequest) {
         : `New inquiry from ${body.name}`;
 
     const isQuote = body.formType === "get_quote";
-    const theme = {
-      bg: "#FFFFFF",
-      text: "#1F2937",
-      muted: "#6B7280",
-      border: "#E5E7EB",
-      soft: "#F9FAFB",
-      accent: "#866544",
-      accentSoft: "rgba(134, 101, 68, 0.12)",
-    };
 
     const introTitle = isQuote
       ? "A new quote request has been submitted"
@@ -135,22 +126,22 @@ export async function POST(request: NextRequest) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${subject}</title>
       </head>
-      <body style="margin: 0; padding: 0; background-color: #F3EFE9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F3EFE9; padding: 48px 20px;">
+      <body style="margin: 0; padding: 0; background-color: #E0F7FF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #E0F7FF; padding: 48px 20px;">
           <tr>
             <td align="center">
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px;">
 
                 <tr>
-                  <td style="height: 4px; background-color: #866544; border-radius: 4px 4px 0 0;"></td>
+                  <td style="height: 4px; background-color: #00AAEE; border-radius: 4px 4px 0 0;"></td>
                 </tr>
 
                 <tr>
-                  <td style="background-color: #3D2B1F; padding: 32px 36px; border-radius: 0;">
+                  <td style="background-color: #0077BB; padding: 32px 36px; border-radius: 0;">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td>
-                          <p style="margin: 0 0 4px 0; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #CA9C60;">
+                          <p style="margin: 0 0 4px 0; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #33BBEE;">
                             PT Kalimas Wood Working Industry
                           </p>
                           <h1 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 700; color: #FFFFFF; line-height: 1.3;">
@@ -161,7 +152,7 @@ export async function POST(request: NextRequest) {
                           </p>
                         </td>
                         <td align="right" valign="top" style="padding-left: 20px; white-space: nowrap;">
-                          <span style="display: inline-block; padding: 6px 14px; background-color: #CA9C60; color: #FFFFFF; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 20px;">
+                          <span style="display: inline-block; padding: 6px 14px; background-color: #00AAEE; color: #FFFFFF; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 20px;">
                             ${isQuote ? "Quote Request" : "General Inquiry"}
                           </span>
                         </td>
@@ -171,28 +162,28 @@ export async function POST(request: NextRequest) {
                 </tr>
 
                 <tr>
-                  <td style="background-color: #FFFFFF; padding: 36px; border: 1px solid #E8E0D5; border-top: none;">
+                  <td style="background-color: #FFFFFF; padding: 36px; border: 1px solid #b3e8fb; border-top: none;">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 28px;">
                       <tr>
                         <td style="padding-bottom: 12px;">
-                          <p style="margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #866544;">
+                          <p style="margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #00AAEE;">
                             Contact Information
                           </p>
                         </td>
                       </tr>
                       <tr>
-                        <td style="border: 1px solid #EDE8E0; border-radius: 6px; overflow: hidden;">
+                        <td style="border: 1px solid #b3e8fb; border-radius: 6px; overflow: hidden;">
                           <table width="100%" cellpadding="0" cellspacing="0" border="0">
                             ${summaryRows
                               .map(
                                 (row, index) => `
-                                <tr style="background-color: ${index % 2 === 0 ? "#FDFCFB" : "#FFFFFF"};">
-                                  <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: ${index === summaryRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #9A8878; font-size: 13px; font-weight: 600;">
+                                <tr style="background-color: ${index % 2 === 0 ? "#f0fbff" : "#FFFFFF"};">
+                                  <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: ${index === summaryRows.length - 1 ? "none" : "1px solid #b3e8fb"}; color: #33BBEE; font-size: 13px; font-weight: 600;">
                                     ${escapeHtml(row.label)}
                                   </td>
-                                  <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: ${index === summaryRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #2C1A0E; font-size: 13px;">
+                                  <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: ${index === summaryRows.length - 1 ? "none" : "1px solid #b3e8fb"}; color: #000000; font-size: 13px;">
                                     ${row.isLink
-                                      ? `<a href="mailto:${escapeHtml(body.email)}" style="color: #866544; text-decoration: none; font-weight: 600;">${escapeHtml(row.value)}</a>`
+                                      ? `<a href="mailto:${escapeHtml(body.email)}" style="color: #00AAEE; text-decoration: none; font-weight: 600;">${escapeHtml(row.value)}</a>`
                                       : escapeHtml(row.value)}
                                   </td>
                                 </tr>
@@ -206,26 +197,26 @@ export async function POST(request: NextRequest) {
 
                     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 28px;">
                       <tr>
-                        <td style="height: 1px; background-color: #EDE8E0;"></td>
+                        <td style="height: 1px; background-color: #b3e8fb;"></td>
                       </tr>
                     </table>
 
                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td style="padding-bottom: 12px;">
-                          <p style="margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #866544;">
+                          <p style="margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #00AAEE;">
                             ${isQuote ? "Request Details" : "Inquiry Details"}
                           </p>
                         </td>
                       </tr>
                       <tr>
-                        <td style="border: 1px solid #EDE8E0; border-radius: 6px; overflow: hidden;">
+                        <td style="border: 1px solid #b3e8fb; border-radius: 6px; overflow: hidden;">
                           <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                            <tr style="background-color: #FAF6F0;">
-                              <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: 1px solid #EDE8E0; color: #9A8878; font-size: 13px; font-weight: 600;">
+                            <tr style="background-color: #E0F7FF;">
+                              <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: 1px solid #b3e8fb; color: #33BBEE; font-size: 13px; font-weight: 600;">
                                 Message
                               </td>
-                              <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: 1px solid #EDE8E0; color: #2C1A0E; font-size: 13px; line-height: 1.7;">
+                              <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: 1px solid #b3e8fb; color: #000000; font-size: 13px; line-height: 1.7;">
                                 ${formatBodyText(body.message)}
                               </td>
                             </tr>
@@ -233,11 +224,11 @@ export async function POST(request: NextRequest) {
                             ${specRows
                               .map(
                                 (row, index) => `
-                                <tr style="background-color: ${index % 2 === 0 ? "#FDFCFB" : "#FFFFFF"};">
-                                  <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: ${index === specRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #9A8878; font-size: 13px; font-weight: 600;">
+                                <tr style="background-color: ${index % 2 === 0 ? "#f0fbff" : "#FFFFFF"};">
+                                  <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: ${index === specRows.length - 1 ? "none" : "1px solid #b3e8fb"}; color: #33BBEE; font-size: 13px; font-weight: 600;">
                                     ${escapeHtml(row.label)}
                                   </td>
-                                  <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: ${index === specRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #2C1A0E; font-size: 13px;">
+                                  <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: ${index === specRows.length - 1 ? "none" : "1px solid #b3e8fb"}; color: #000000; font-size: 13px;">
                                     ${escapeHtml(row.value)}
                                   </td>
                                 </tr>
@@ -252,7 +243,7 @@ export async function POST(request: NextRequest) {
                 </tr>
 
                 <tr>
-                  <td style="background-color: #3D2B1F; padding: 20px 36px; border-radius: 0 0 4px 4px;">
+                  <td style="background-color: #0077BB; padding: 20px 36px; border-radius: 0 0 4px 4px;">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td>
@@ -262,7 +253,7 @@ export async function POST(request: NextRequest) {
                           </p>
                         </td>
                         <td align="right" valign="middle" style="padding-left: 20px; white-space: nowrap;">
-                          <p style="margin: 0; font-size: 11px; font-weight: 700; color: #CA9C60; letter-spacing: 0.08em; text-transform: uppercase;">
+                          <p style="margin: 0; font-size: 11px; font-weight: 700; color: #33BBEE; letter-spacing: 0.08em; text-transform: uppercase;">
                             KWWI
                           </p>
                         </td>
@@ -272,7 +263,7 @@ export async function POST(request: NextRequest) {
                 </tr>
 
                 <tr>
-                  <td style="height: 3px; background-color: #CA9C60; border-radius: 0 0 4px 4px;"></td>
+                  <td style="height: 3px; background-color: #33BBEE; border-radius: 0 0 4px 4px;"></td>
                 </tr>
               </table>
             </td>
