@@ -20,7 +20,7 @@ export function Footer() {
             >
               <div className="relative w-[270px] h-[81px] flex-shrink-0">
                 <Image
-                  src="/logo-color.svg"
+                  src="/Logo-color.svg"
                   alt="KWWI Logo"
                   fill
                   className="object-contain object-left"
