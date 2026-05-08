@@ -128,7 +128,7 @@ export function Navbar() {
                   side="right"
                   className="bg-white border-l-0 w-[85vw] sm:w-[400px] flex flex-col px-8 py-10"
                 >
-                  <SheetTitle className="text-[#0077BB] text-left text-xl tracking-widest uppercase font-bold mb-12">
+                  <SheetTitle className="text-[#314D3D] text-left text-xl tracking-widest uppercase font-bold mb-12">
                     Navigation
                   </SheetTitle>
 
@@ -142,8 +142,8 @@ export function Navbar() {
                           className={cn(
                             "group flex items-center justify-between text-3xl font-medium transition-colors duration-300",
                             isActive
-                              ? "text-[#00AAEE]"
-                              : "text-gray-400 hover:text-[#00AAEE]",
+                              ? "text-[#314D3D]"
+                              : "text-gray-400 hover:text-[#314D3D]",
                           )}
                         >
                           <span>{link.name}</span>
@@ -162,17 +162,17 @@ export function Navbar() {
 
                   {/* Mobile Footer */}
                   <div className="mt-auto pt-8 border-t border-gray-100 flex flex-col gap-8">
-                    <div className="flex flex-col gap-3 text-sm text-[#0077BB]/70 font-medium">
+                    <div className="flex flex-col gap-3 text-sm text-[#314D3D]/70 font-medium">
                       <a
                         href="mailto:kwwi@gmx.com"
-                        className="flex items-center gap-3 hover:text-[#0077BB] transition-colors"
+                        className="flex items-center gap-3 hover:text-[#314D3D] transition-colors"
                       >
                         <Mail className="h-5 w-5" />
                         <span>kwwi@gmx.com</span>
                       </a>
                       <a
                         href="tel:+62215960132"
-                        className="flex items-center gap-3 hover:text-[#0077BB] transition-colors"
+                        className="flex items-center gap-3 hover:text-[#314D3D] transition-colors"
                       >
                         <Phone className="h-5 w-5" />
                         <span>+62 21 596 0132</span>
@@ -180,7 +180,7 @@ export function Navbar() {
                     </div>
                     <Link
                       href="/contact?tab=quote"
-                      className="flex items-center justify-center w-full h-14 bg-[#00AAEE] text-white font-bold rounded-[20px] hover:bg-[#0077BB] transition-colors text-lg shadow-md"
+                      className="flex items-center justify-center w-full h-14 bg-[#14261C] text-white font-bold rounded-[20px] hover:bg-[#314D3D] transition-colors text-lg shadow-md"
                     >
                       Get Quote
                     </Link>
