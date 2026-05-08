@@ -95,7 +95,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright */}
-        <div className="border-t border-white/20 pt-8 flex flex-col items-center justify-center gap-4 text-sm text-white/70">
+        <div className="border-t border-white/20 pt-8 flex flex-col items-center justify-center gap-4 text-sm text-[#14261C]">
           <p>
             &copy; {currentYear} PT Kalimas Wood Working Industry. All rights
             reserved.
