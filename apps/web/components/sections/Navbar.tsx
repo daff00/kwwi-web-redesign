@@ -48,7 +48,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
         navState === "white" &&
-          "bg-white/90 backdrop-blur-md text-[#14261C] shadow-sm",
+          "bg-white/90 backdrop-blur-md text-[#866544] shadow-sm",
         navState === "glass" &&
           "bg-black/20 backdrop-blur-md text-white shadow-sm",
         navState === "top" && "bg-transparent text-white",
@@ -110,7 +110,7 @@ export function Navbar() {
               className={cn(
                 "hidden lg:flex items-center justify-center font-bold w-[162px] h-[48px] rounded-[20px] transition-all duration-300",
                 navState === "white"
-                  ? "bg-[#14261C] text-white hover:bg-[#314D3D]"
+                  ? "bg-[#866544] text-white hover:bg-[#866544]/90"
                   : "bg-[#f4f4f4]/[0.21] border border-[#ffffff]/[0.21] text-white hover:bg-[#f4f4f4]/[0.3]",
               )}
             >
@@ -128,7 +128,7 @@ export function Navbar() {
                   side="right"
                   className="bg-white border-l-0 w-[85vw] sm:w-[400px] flex flex-col px-8 py-10"
                 >
-                  <SheetTitle className="text-[#314D3D] text-left text-xl tracking-widest uppercase font-bold mb-12">
+                  <SheetTitle className="text-[#866544] text-left text-xl tracking-widest uppercase font-bold mb-12">
                     Navigation
                   </SheetTitle>
 
@@ -142,8 +142,8 @@ export function Navbar() {
                           className={cn(
                             "group flex items-center justify-between text-3xl font-medium transition-colors duration-300",
                             isActive
-                              ? "text-[#314D3D]"
-                              : "text-gray-400 hover:text-[#314D3D]",
+                              ? "text-[#866544]"
+                              : "text-gray-400 hover:text-[#866544]",
                           )}
                         >
                           <span>{link.name}</span>
@@ -162,17 +162,17 @@ export function Navbar() {
 
                   {/* Mobile Footer */}
                   <div className="mt-auto pt-8 border-t border-gray-100 flex flex-col gap-8">
-                    <div className="flex flex-col gap-3 text-sm text-[#314D3D]/70 font-medium">
+                    <div className="flex flex-col gap-3 text-sm text-[#866544]/70 font-medium">
                       <a
                         href="mailto:kwwi@gmx.com"
-                        className="flex items-center gap-3 hover:text-[#314D3D] transition-colors"
+                        className="flex items-center gap-3 hover:text-[#866544] transition-colors"
                       >
                         <Mail className="h-5 w-5" />
                         <span>kwwi@gmx.com</span>
                       </a>
                       <a
                         href="tel:+62215960132"
-                        className="flex items-center gap-3 hover:text-[#314D3D] transition-colors"
+                        className="flex items-center gap-3 hover:text-[#866544] transition-colors"
                       >
                         <Phone className="h-5 w-5" />
                         <span>+62 21 596 0132</span>
@@ -180,7 +180,7 @@ export function Navbar() {
                     </div>
                     <Link
                       href="/contact?tab=quote"
-                      className="flex items-center justify-center w-full h-14 bg-[#14261C] text-white font-bold rounded-[20px] hover:bg-[#314D3D] transition-colors text-lg shadow-md"
+                      className="flex items-center justify-center w-full h-14 bg-[#866544] text-white font-bold rounded-[20px] hover:bg-[#866544]/90 transition-colors text-lg shadow-md"
                     >
                       Get Quote
                     </Link>

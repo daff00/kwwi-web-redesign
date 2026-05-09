@@ -16,7 +16,7 @@ export default function HomePage() {
         style={{ backgroundImage: "url('/hero-bg.webp')" }}
       >
         <div className="absolute inset-0 bg-black/50 z-0" />
-        <div className="absolute bottom-0 left-0 right-0 h-56 sm:h-48 bg-gradient-to-t from-[#F4F6F4] via-[#F4F6F4]/80 to-transparent z-0" />
+        <div className="absolute bottom-0 left-0 right-0 h-56 sm:h-48 bg-gradient-to-t from-[#866544] via-[#866544]/80 to-transparent z-0" />
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-28 lg:py-36 w-full flex flex-col justify-center items-start text-white">
           <div className="mb-4">
             <Badge className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm">

@@ -90,7 +90,7 @@ function FieldLabel({
   required?: boolean;
 }) {
   return (
-    <label className="text-[#1E5C33] text-xs font-semibold flex items-center gap-1">
+    <label className="text-[#5C3D1E] text-xs font-semibold flex items-center gap-1">
       {children}
       {required && <span className="text-red-500">*</span>}
     </label>
@@ -103,10 +103,8 @@ function Field({ children }: { children: React.ReactNode }) {
 }
 
 // Consistent input className
-const inputCls =
-  "bg-white border border-[#BFD8C4] text-[#314D3D] placeholder:text-[#BFD8C4] rounded-xl h-11 focus:border-[#4EA86D] focus:ring-1 focus:ring-[#4EA86D]";
-const selectTriggerCls =
-  "bg-white border border-[#BFD8C4] text-[#314D3D] rounded-xl h-11 focus:border-[#4EA86D] focus:ring-1 focus:ring-[#4EA86D]";
+const inputCls ="bg-white border border-[#C8B89A] text-[#3D2B1F] placeholder:text-[#C8B89A] rounded-xl h-11 focus:border-[#CA9C60] focus:ring-1 focus:ring-[#CA9C60]";
+const selectTriggerCls = "bg-white border border-[#C8B89A] text-[#3D2B1F] rounded-xl h-11 focus:border-[#CA9C60] focus:ring-1 focus:ring-[#CA9C60]";
 
 export default function ContactClient() {
   const searchParams = useSearchParams();
@@ -245,7 +243,7 @@ export default function ContactClient() {
             {/* LEFT — Tabbed Form */}
             <div className="w-full lg:w-3/5">
               {/* Tab selector */}
-                  <div className="flex gap-2 mb-8 bg-[#E3EDE7] p-1 rounded-xl w-fit">
+              <div className="flex gap-2 mb-8 bg-[#EDE9E3] p-1 rounded-xl w-fit">
                 {tabs.map((tab, i) => (
                   <button
                     key={tab}
@@ -253,8 +251,8 @@ export default function ContactClient() {
                     className={cn(
                       "px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200",
                       activeTab === i
-                        ? "bg-[#1E5C33] text-white shadow-sm"
-                        : "text-[#314D3D]/70 hover:text-[#314D3D]",
+                        ? "bg-[#5C3D1E] text-white shadow-sm"
+                        : "text-[#866544] hover:text-[#5C3D1E]",
                     )}
                   >
                     {tab}
@@ -263,11 +261,11 @@ export default function ContactClient() {
               </div>
 
               {/* Form header */}
-              <h2 className="text-[#314D3D] text-3xl font-bold mb-2">
+              <h2 className="text-[#3D2B1F] text-3xl font-bold mb-2">
                 {activeTab === 1 ? "Your Specifications" : "Your Message"}
               </h2>
-              <div className="bg-[#314D3D] h-1 w-10 mb-5" />
-              <p className="text-[#314D3D] text-sm leading-relaxed mb-8 max-w-sm">
+              <div className="bg-[#866544] h-1 w-10 mb-5" />
+              <p className="text-[#7A5C3A] text-sm leading-relaxed mb-8 max-w-sm">
                 {activeTab === 1
                   ? "Please fill in as much detail as possible. The more we know, the faster we can prepare an accurate quotation."
                   : "Fill in the form below and we'll get back to you as soon as possible."}
@@ -276,11 +274,11 @@ export default function ContactClient() {
               {/* Form outline box */}
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-6 bg-white border border-[#314D3D]/60 rounded-2xl p-8 shadow-sm"
+                className="flex flex-col gap-6 bg-white border border-[#C8B89A]/60 rounded-2xl p-8 shadow-sm"
               >
                 {/* Contact details group */}
                 <div className="flex flex-col gap-4" />
-                <p className="text-[#314D3D] text-xs font-bold uppercase tracking-widest border-b border-[#EDE9E3] pb-2">
+                <p className="text-[#5C3D1E] text-xs font-bold uppercase tracking-widest border-b border-[#EDE9E3] pb-2">
                   Contact Details
                 </p>
 
@@ -378,7 +376,7 @@ export default function ContactClient() {
                 {/* Product specs — only on Get Quote tab */}
                 {activeTab === 1 && (
                   <div className="flex flex-col gap-4">
-                    <p className="text-[#314D3D] text-xs font-bold uppercase tracking-widest border-b border-[#EDE9E3] pb-2">
+                    <p className="text-[#5C3D1E] text-xs font-bold uppercase tracking-widest border-b border-[#EDE9E3] pb-2">
                       Product Specifications
                     </p>
 
@@ -406,14 +404,14 @@ export default function ContactClient() {
                                 <label
                                   key={type}
                                   className={cn(
-                                          "flex items-center gap-2 cursor-pointer rounded-xl px-3 py-3 text-xs font-medium border transition-all duration-200",
-                                          form.productTypes.includes(type)
-                                            ? "bg-[#1E5C33] text-white border-[#1E5C33]"
-                                            : "bg-white text-[#1E5C33] border-[#BFD8C4] hover:border-[#4EA86D]",
-                                          isNotSure && type !== "Not sure — advise me"
-                                            ? "opacity-40 cursor-not-allowed"
-                                            : "",
-                                        )}
+                                    "flex items-center gap-2 cursor-pointer rounded-xl px-3 py-3 text-xs font-medium border transition-all duration-200",
+                                    form.productTypes.includes(type)
+                                      ? "bg-[#5C3D1E] text-white border-[#5C3D1E]"
+                                      : "bg-white text-[#5C3D1E] border-[#C8B89A] hover:border-[#CA9C60]",
+                                    isNotSure && type !== "Not sure — advise me"
+                                      ? "opacity-40 cursor-not-allowed"
+                                      : "",
+                                  )}
                                 >
                                   <input
                                     type="checkbox"
@@ -473,8 +471,8 @@ export default function ContactClient() {
                                     className={cn(
                                       "w-3.5 h-3.5 rounded border shrink-0 flex items-center justify-center",
                                       form.productTypes.includes(type)
-                                        ? "bg-[#4EA86D] border-[#4EA86D]"
-                                        : "border-[#BFD8C4]",
+                                        ? "bg-[#CA9C60] border-[#CA9C60]"
+                                        : "border-[#C8B89A]",
                                     )}
                                   >
                                     {form.productTypes.includes(type) && (
@@ -504,7 +502,7 @@ export default function ContactClient() {
                               <FieldLabel required>
                                 Describe your custom specification
                               </FieldLabel>
-                                <Textarea
+                              <Textarea
                                 rows={3}
                                 value={form.customSpec}
                                 onChange={(e) =>
@@ -514,7 +512,7 @@ export default function ContactClient() {
                                   }))
                                 }
                                 placeholder="Describe your custom dimensions, grade, finish, or other requirements..."
-                                className="bg-white border border-[#BFD8C4] text-[#314D3D] placeholder:text-[#BFD8C4] rounded-xl resize-none focus:border-[#4EA86D] focus:ring-1 focus:ring-[#4EA86D]"
+                                className="bg-white border border-[#C8B89A] text-[#3D2B1F] placeholder:text-[#C8B89A] rounded-xl resize-none focus:border-[#CA9C60] focus:ring-1 focus:ring-[#CA9C60]"
                               />
                             </Field>
                           )}
@@ -527,7 +525,7 @@ export default function ContactClient() {
                             )}
                           >
                             {isLocked && (
-                              <div className="bg-[#EFF7EF] border border-[#BFD8C4]/40 rounded-xl px-4 py-3 text-xs text-[#1E5C33] text-center">
+                              <div className="bg-[#FAF6F0] border border-[#C8B89A]/40 rounded-xl px-4 py-3 text-xs text-[#866544] text-center">
                                 {isCustom
                                   ? "Specifications locked — please describe your custom requirements in the text box above"
                                   : "Specifications locked — please describe your needs in the notes below"}
@@ -662,7 +660,7 @@ export default function ContactClient() {
                                     set("delivery", e.target.value)
                                   }
                                   placeholder="e.g. Q3 2026"
-                                    className={inputCls}
+                                  className={inputCls}
                                   disabled={isLocked}
                                 />
                               </Field>
@@ -698,7 +696,7 @@ export default function ContactClient() {
 
                 {/* Message group */}
                 <div className="flex flex-col gap-4">
-                  <p className="text-[#314D3D] text-xs font-bold uppercase tracking-widest border-b border-[#EDE9E3] pb-2">
+                  <p className="text-[#5C3D1E] text-xs font-bold uppercase tracking-widest border-b border-[#EDE9E3] pb-2">
                     {activeTab === 1 ? "Additional Notes" : "Your Message"}
                   </p>
                   <Field>
@@ -707,7 +705,7 @@ export default function ContactClient() {
                         ? "Special requirements or notes"
                         : "Message"}
                     </FieldLabel>
-                      <Textarea
+                    <Textarea
                       rows={4}
                       value={form.message}
                       onChange={(e) =>
@@ -718,7 +716,7 @@ export default function ContactClient() {
                           ? "Dimensions, surface finish, moisture content spec, packaging requirements..."
                           : "How can we help you?"
                       }
-                      className="bg-white border border-[#BFD8C4] text-[#314D3D] placeholder:text-[#BFD8C4] rounded-xl resize-none focus:border-[#4EA86D] focus:ring-1 focus:ring-[#4EA86D]"
+                      className="bg-white border border-[#C8B89A] text-[#3D2B1F] placeholder:text-[#C8B89A] rounded-xl resize-none focus:border-[#CA9C60] focus:ring-1 focus:ring-[#CA9C60]"
                     />
                   </Field>
                 </div>
@@ -734,7 +732,7 @@ export default function ContactClient() {
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-12 bg-[#1E5C33] hover:bg-[#4EA86D] text-white font-bold rounded-xl text-sm"
+                    className="w-full h-12 bg-[#5C3D1E] hover:bg-[#5C3D1E]/90 text-white font-bold rounded-xl text-sm"
                   >
                     {loading ? (
                       <span className="inline-flex items-center gap-2">
@@ -749,7 +747,7 @@ export default function ContactClient() {
                   </Button>
                 )}
 
-                <p className="text-[#6B8B73] text-xs text-center">
+                <p className="text-[#9A8878] text-xs text-center">
                   Fields marked with <span className="text-red-500">*</span> are
                   required · We typically respond within 1 business day · All
                   inquiries are confidential
@@ -760,16 +758,34 @@ export default function ContactClient() {
             {/* RIGHT — Company Info */}
             <div className="w-full lg:w-2/5 flex flex-col gap-5 lg:sticky lg:top-24">
               {/* Contact + Locations combined card */}
-              <Card className="bg-white border border-[#314D3D]/60 rounded-2xl p-6 shadow-sm flex flex-col gap-6">
+              <Card className="bg-white border border-[#C8B89A]/60 rounded-2xl p-6 shadow-sm flex flex-col gap-6">
                 {/* Header */}
                 <div className="flex items-center gap-2">
-                  <div className="bg-[#1E5C33] rounded-lg p-1.5 shrink-0">
+                  <div className="bg-[#CA9C60] rounded-lg p-1.5 shrink-0">
                     <Mail className="text-white w-3.5 h-3.5" />
                   </div>
-                  <p className="text-[#314D3D] font-bold text-sm">
+                  <p className="text-[#866544] font-bold text-sm">
                     Contact us directly
                   </p>
                 </div>
+
+                {/* Primary contact info (keep ONLY key channel)
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-[#FAF6F0] border border-[#C8B89A]/40 rounded-lg p-2 shrink-0">
+                      <Mail className="text-[#CA9C60] w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-[#866544] text-xs">Email</p>
+                      <a
+                        href="mailto:kwwi@gmx.com"
+                        className="text-[#866544] text-sm font-medium hover:text-[#CA9C60] transition-colors"
+                      >
+                        kwwi@gmx.com
+                      </a>
+                    </div>
+                  </div>
+                </div> */}
 
                 {/* Divider */}
                 <div className="border-t border-[#EDE9E3]" />
@@ -780,16 +796,16 @@ export default function ContactClient() {
                     <div key={loc.label} className="flex flex-col gap-3">
                       {/* Location header */}
                       <div className="flex items-center gap-2">
-                        <div className="bg-[#1E5C33] rounded-lg p-1.5 shrink-0">
+                        <div className="bg-[#CA9C60] rounded-lg p-1.5 shrink-0">
                           <MapPin className="text-white w-3.5 h-3.5" />
                         </div>
-                        <p className="text-[#314D3D] font-bold text-sm">
+                        <p className="text-[#866544] font-bold text-sm">
                           {loc.label}
                         </p>
                       </div>
 
                       {/* Address */}
-                      <p className="text-[#314D3D] text-xs leading-relaxed">
+                      <p className="text-[#7A5C3A] text-xs leading-relaxed">
                         {loc.address}
                       </p>
 
@@ -797,8 +813,8 @@ export default function ContactClient() {
                       <div className="flex flex-col gap-2 pl-1">
                         {loc.phone && (
                           <div className="flex items-center gap-2">
-                            <Phone className="text-[#1E5C33] w-3.5 h-3.5 shrink-0" />
-                            <p className="text-[#314D3D] text-xs font-medium">
+                            <Phone className="text-[#CA9C60] w-3.5 h-3.5 shrink-0" />
+                            <p className="text-[#866544] text-xs font-medium">
                               {loc.phone}
                             </p>
                           </div>
@@ -806,8 +822,8 @@ export default function ContactClient() {
 
                         {loc.fax && (
                           <div className="flex items-center gap-2">
-                            <Printer className="text-[#1E5C33] w-3.5 h-3.5 shrink-0" />
-                            <p className="text-[#314D3D] text-xs font-medium">
+                            <Printer className="text-[#CA9C60] w-3.5 h-3.5 shrink-0" />
+                            <p className="text-[#866544] text-xs font-medium">
                               {loc.fax}
                             </p>
                           </div>
@@ -815,10 +831,10 @@ export default function ContactClient() {
 
                         {loc.email && (
                           <div className="flex items-center gap-2">
-                            <Mail className="text-[#1E5C33] w-3.5 h-3.5 shrink-0" />
+                            <Mail className="text-[#CA9C60] w-3.5 h-3.5 shrink-0" />
                             <a
                               href={`mailto:${loc.email}`}
-                              className="text-[#314D3D] text-xs font-medium hover:underline"
+                              className="text-[#CA9C60] text-xs font-medium hover:underline"
                             >
                               {loc.email}
                             </a>
