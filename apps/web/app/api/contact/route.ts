@@ -43,6 +43,296 @@ function createMailer() {
   });
 }
 
+// ─── Quote Request Email (full structured layout) ────────────────────────────
+function buildQuoteHtml(body: any): string {
+  const subject = `New quote request from ${body.name}`;
+
+  const summaryRows = [
+    { label: "Name", value: body.name },
+    { label: "Email", value: body.email, isLink: true },
+    { label: "Phone", value: optionalText(body.phone) },
+    { label: "Company", value: optionalText(body.company) },
+    { label: "Request Type", value: "Get Quote" },
+  ];
+
+  const specRows = [
+    { label: "Product", value: optionalArray(body.productTypes) },
+    {
+      label: "Dimensions",
+      value: `${optionalText(body.thickness)} × ${optionalText(body.width)} × ${optionalText(body.length)}`,
+    },
+    { label: "Quantity", value: optionalText(body.quantity) },
+    {
+      label: "Location",
+      value: `${optionalText(body.country)} (${optionalText(body.port)})`,
+    },
+    { label: "Incoterm", value: optionalText(body.incoterm) },
+    { label: "Delivery", value: optionalText(body.delivery) },
+  ];
+
+  const rowHtml = (rows: typeof summaryRows) =>
+    rows
+      .map(
+        (row, i) => `
+        <tr style="background-color:${i % 2 === 0 ? "#FDFCFB" : "#FFFFFF"};">
+          <td width="35%" valign="top" style="padding:11px 16px;border-bottom:${i === rows.length - 1 ? "none" : "1px solid #EDE8E0"};color:#9A8878;font-size:13px;font-weight:600;">
+            ${escapeHtml(row.label)}
+          </td>
+          <td width="65%" valign="top" style="padding:11px 16px;border-bottom:${i === rows.length - 1 ? "none" : "1px solid #EDE8E0"};color:#2C1A0E;font-size:13px;">
+            ${"isLink" in row && row.isLink
+              ? `<a href="mailto:${escapeHtml(body.email)}" style="color:#866544;text-decoration:none;font-weight:600;">${escapeHtml(row.value)}</a>`
+              : escapeHtml(row.value)}
+          </td>
+        </tr>`
+      )
+      .join("");
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <title>${escapeHtml(subject)}</title>
+    </head>
+    <body style="margin:0;padding:0;background-color:#F3EFE9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F3EFE9;padding:48px 20px;">
+        <tr><td align="center">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+
+            <!-- top accent bar -->
+            <tr><td style="height:4px;background-color:#866544;border-radius:4px 4px 0 0;"></td></tr>
+
+            <!-- header -->
+            <tr>
+              <td style="background-color:#3D2B1F;padding:32px 36px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td>
+                      <p style="margin:0 0 4px 0;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#CA9C60;">
+                        PT Kalimas Wood Working Industry
+                      </p>
+                      <h1 style="margin:0 0 6px 0;font-size:22px;font-weight:700;color:#FFFFFF;line-height:1.3;">
+                        A new quote request has been submitted
+                      </h1>
+                      <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5;">
+                        The customer is requesting pricing and logistics details. The summary below includes the contact and specification information provided in the form.
+                      </p>
+                    </td>
+                    <td align="right" valign="top" style="padding-left:20px;white-space:nowrap;">
+                      <span style="display:inline-block;padding:6px 14px;background-color:#CA9C60;color:#FFFFFF;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;border-radius:20px;">
+                        Quote Request
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- body -->
+            <tr>
+              <td style="background-color:#FFFFFF;padding:36px;border:1px solid #E8E0D5;border-top:none;">
+
+                <!-- contact info -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                  <tr><td style="padding-bottom:12px;">
+                    <p style="margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#866544;">Contact Information</p>
+                  </td></tr>
+                  <tr><td style="border:1px solid #EDE8E0;border-radius:6px;overflow:hidden;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      ${rowHtml(summaryRows)}
+                    </table>
+                  </td></tr>
+                </table>
+
+                <!-- divider -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                  <tr><td style="height:1px;background-color:#EDE8E0;"></td></tr>
+                </table>
+
+                <!-- request details -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr><td style="padding-bottom:12px;">
+                    <p style="margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#866544;">Request Details</p>
+                  </td></tr>
+                  <tr><td style="border:1px solid #EDE8E0;border-radius:6px;overflow:hidden;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <!-- message row always first -->
+                      <tr style="background-color:#FAF6F0;">
+                        <td width="35%" valign="top" style="padding:11px 16px;border-bottom:1px solid #EDE8E0;color:#9A8878;font-size:13px;font-weight:600;">Message</td>
+                        <td width="65%" valign="top" style="padding:11px 16px;border-bottom:1px solid #EDE8E0;color:#2C1A0E;font-size:13px;line-height:1.7;">
+                          ${formatBodyText(body.message)}
+                        </td>
+                      </tr>
+                      ${specRows
+                        .map(
+                          (row, i) => `
+                          <tr style="background-color:${i % 2 === 0 ? "#FDFCFB" : "#FFFFFF"};">
+                            <td width="35%" valign="top" style="padding:11px 16px;border-bottom:${i === specRows.length - 1 ? "none" : "1px solid #EDE8E0"};color:#9A8878;font-size:13px;font-weight:600;">
+                              ${escapeHtml(row.label)}
+                            </td>
+                            <td width="65%" valign="top" style="padding:11px 16px;border-bottom:${i === specRows.length - 1 ? "none" : "1px solid #EDE8E0"};color:#2C1A0E;font-size:13px;">
+                              ${escapeHtml(row.value)}
+                            </td>
+                          </tr>`
+                        )
+                        .join("")}
+                    </table>
+                  </td></tr>
+                </table>
+
+              </td>
+            </tr>
+
+            <!-- footer -->
+            <tr>
+              <td style="background-color:#3D2B1F;padding:20px 36px;border-radius:0 0 4px 4px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td>
+                      <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;">
+                        This message was submitted via the KWWI website contact form.
+                        Reply directly to this email to respond to the sender.
+                      </p>
+                    </td>
+                    <td align="right" valign="middle" style="padding-left:20px;white-space:nowrap;">
+                      <p style="margin:0;font-size:11px;font-weight:700;color:#CA9C60;letter-spacing:0.08em;text-transform:uppercase;">KWWI</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- bottom accent bar -->
+            <tr><td style="height:3px;background-color:#CA9C60;border-radius:0 0 4px 4px;"></td></tr>
+
+          </table>
+        </td></tr>
+      </table>
+    </body>
+    </html>
+  `;
+}
+
+// ─── General Inquiry Email (clean plain-style) ────────────────────────────────
+function buildInquiryHtml(body: any): string {
+  const subject = `New inquiry from ${body.name}`;
+
+  const meta = [
+    { label: "From", value: body.name },
+    { label: "Email", value: body.email, isLink: true },
+    ...(body.phone?.trim() ? [{ label: "Phone", value: body.phone.trim() }] : []),
+    ...(body.company?.trim() ? [{ label: "Company", value: body.company.trim() }] : []),
+    ...(body.country?.trim() || body.port?.trim()
+      ? [
+          {
+            label: "Location",
+            value: `${optionalText(body.country)}${body.port?.trim() ? ` (${body.port.trim()})` : ""}`,
+          },
+        ]
+      : []),
+    ...(body.productTypes?.length
+      ? [{ label: "Product Interest", value: optionalArray(body.productTypes) }]
+      : []),
+  ];
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <title>${escapeHtml(subject)}</title>
+    </head>
+    <body style="margin:0;padding:0;background-color:#F3EFE9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F3EFE9;padding:48px 20px;">
+        <tr><td align="center">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;">
+
+            <!-- top accent bar -->
+            <tr><td style="height:4px;background-color:#866544;border-radius:4px 4px 0 0;"></td></tr>
+
+            <!-- card -->
+            <tr>
+              <td style="background-color:#FFFFFF;padding:40px 44px;border:1px solid #E8E0D5;border-top:none;">
+
+                <!-- brand label -->
+                <p style="margin:0 0 24px 0;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#866544;">
+                  PT Kalimas Wood Working Industry
+                </p>
+
+                <!-- subject line -->
+                <h1 style="margin:0 0 6px 0;font-size:20px;font-weight:700;color:#2C1A0E;line-height:1.3;">
+                  New inquiry from ${escapeHtml(body.name)}
+                </h1>
+                <p style="margin:0 0 32px 0;font-size:13px;color:#9A8878;">
+                  Submitted via the KWWI website contact form
+                </p>
+
+                <!-- divider -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                  <tr><td style="height:1px;background-color:#EDE8E0;"></td></tr>
+                </table>
+
+                <!-- message block -->
+                <p style="margin:0 0 8px 0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#866544;">
+                  Message
+                </p>
+                <p style="margin:0 0 32px 0;font-size:14px;color:#2C1A0E;line-height:1.75;white-space:pre-wrap;">
+                  ${formatBodyText(body.message)}
+                </p>
+
+                <!-- divider -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                  <tr><td style="height:1px;background-color:#EDE8E0;"></td></tr>
+                </table>
+
+                <!-- sender details -->
+                <p style="margin:0 0 14px 0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#866544;">
+                  Sender Details
+                </p>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  ${meta
+                    .map(
+                      (row) => `
+                      <tr>
+                        <td valign="top" width="38%" style="padding:6px 0;font-size:13px;color:#9A8878;font-weight:600;">
+                          ${escapeHtml(row.label)}
+                        </td>
+                        <td valign="top" style="padding:6px 0;font-size:13px;color:#2C1A0E;">
+                          ${"isLink" in row && row.isLink
+                            ? `<a href="mailto:${escapeHtml(body.email)}" style="color:#866544;text-decoration:none;font-weight:600;">${escapeHtml(row.value)}</a>`
+                            : escapeHtml(row.value)}
+                        </td>
+                      </tr>`
+                    )
+                    .join("")}
+                </table>
+
+              </td>
+            </tr>
+
+            <!-- footer -->
+            <tr>
+              <td style="background-color:#3D2B1F;padding:18px 44px;border-radius:0 0 4px 4px;">
+                <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;">
+                  Reply directly to this email to respond to ${escapeHtml(body.name)}.
+                </p>
+              </td>
+            </tr>
+
+            <!-- bottom accent bar -->
+            <tr><td style="height:3px;background-color:#CA9C60;border-radius:0 0 4px 4px;"></td></tr>
+
+          </table>
+        </td></tr>
+      </table>
+    </body>
+    </html>
+  `;
+}
+
+// ─── Route Handler ────────────────────────────────────────────────────────────
 export async function POST(request: NextRequest) {
   try {
     const payload = await request.json();
@@ -68,219 +358,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const subject =
-      body.formType === "get_quote"
-        ? `New quote request from ${body.name}`
-        : `New inquiry from ${body.name}`;
-
     const isQuote = body.formType === "get_quote";
-    const theme = {
-      bg: "#FFFFFF",
-      text: "#1F2937",
-      muted: "#6B7280",
-      border: "#E5E7EB",
-      soft: "#F9FAFB",
-      accent: "#866544",
-      accentSoft: "rgba(134, 101, 68, 0.12)",
-    };
 
-    const introTitle = isQuote
-      ? "A new quote request has been submitted"
-      : "A new inquiry has been submitted";
-    const introText = isQuote
-      ? "The customer is requesting pricing and logistics details. The summary below includes the contact and specification information provided in the form."
-      : "The customer is reaching out with a general inquiry. The summary below includes the contact information and message they shared.";
+    const subject = isQuote
+      ? `New quote request from ${body.name}`
+      : `New inquiry from ${body.name}`;
 
-    const summaryRows = [
-      { label: "Name", value: body.name },
-      { label: "Email", value: body.email, isLink: true },
-      { label: "Phone", value: optionalText(body.phone) },
-      { label: "Company", value: optionalText(body.company) },
-      {
-        label: isQuote ? "Request Type" : "Inquiry Type",
-        value: isQuote ? "Get Quote" : "General Inquiry",
-      },
-    ];
-
-    const specRows = isQuote
-      ? [
-          { label: "Product", value: optionalArray(body.productTypes) },
-          {
-            label: "Dimensions",
-            value: `${optionalText(body.thickness)} x ${optionalText(
-              body.width
-            )} x ${optionalText(body.length)}`,
-          },
-          { label: "Quantity", value: optionalText(body.quantity) },
-          {
-            label: "Location",
-            value: `${optionalText(body.country)} (${optionalText(body.port)})`,
-          },
-          { label: "Incoterm", value: optionalText(body.incoterm) },
-          { label: "Delivery", value: optionalText(body.delivery) },
-        ]
-      : [
-          {
-            label: "Location",
-            value: `${optionalText(body.country)} (${optionalText(body.port)})`,
-          },
-          { label: "Product", value: optionalArray(body.productTypes) },
-        ];
-
-    const html = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${subject}</title>
-      </head>
-      <body style="margin: 0; padding: 0; background-color: #F3EFE9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F3EFE9; padding: 48px 20px;">
-          <tr>
-            <td align="center">
-              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px;">
-
-                <tr>
-                  <td style="height: 4px; background-color: #866544; border-radius: 4px 4px 0 0;"></td>
-                </tr>
-
-                <tr>
-                  <td style="background-color: #3D2B1F; padding: 32px 36px; border-radius: 0;">
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                      <tr>
-                        <td>
-                          <p style="margin: 0 0 4px 0; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #CA9C60;">
-                            PT Kalimas Wood Working Industry
-                          </p>
-                          <h1 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 700; color: #FFFFFF; line-height: 1.3;">
-                            ${introTitle}
-                          </h1>
-                          <p style="margin: 0; font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5;">
-                            ${introText}
-                          </p>
-                        </td>
-                        <td align="right" valign="top" style="padding-left: 20px; white-space: nowrap;">
-                          <span style="display: inline-block; padding: 6px 14px; background-color: #CA9C60; color: #FFFFFF; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 20px;">
-                            ${isQuote ? "Quote Request" : "General Inquiry"}
-                          </span>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td style="background-color: #FFFFFF; padding: 36px; border: 1px solid #E8E0D5; border-top: none;">
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 28px;">
-                      <tr>
-                        <td style="padding-bottom: 12px;">
-                          <p style="margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #866544;">
-                            Contact Information
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="border: 1px solid #EDE8E0; border-radius: 6px; overflow: hidden;">
-                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                            ${summaryRows
-                              .map(
-                                (row, index) => `
-                                <tr style="background-color: ${index % 2 === 0 ? "#FDFCFB" : "#FFFFFF"};">
-                                  <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: ${index === summaryRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #9A8878; font-size: 13px; font-weight: 600;">
-                                    ${escapeHtml(row.label)}
-                                  </td>
-                                  <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: ${index === summaryRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #2C1A0E; font-size: 13px;">
-                                    ${row.isLink
-                                      ? `<a href="mailto:${escapeHtml(body.email)}" style="color: #866544; text-decoration: none; font-weight: 600;">${escapeHtml(row.value)}</a>`
-                                      : escapeHtml(row.value)}
-                                  </td>
-                                </tr>
-                              `
-                              )
-                              .join("")}
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 28px;">
-                      <tr>
-                        <td style="height: 1px; background-color: #EDE8E0;"></td>
-                      </tr>
-                    </table>
-
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                      <tr>
-                        <td style="padding-bottom: 12px;">
-                          <p style="margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #866544;">
-                            ${isQuote ? "Request Details" : "Inquiry Details"}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="border: 1px solid #EDE8E0; border-radius: 6px; overflow: hidden;">
-                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                            <tr style="background-color: #FAF6F0;">
-                              <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: 1px solid #EDE8E0; color: #9A8878; font-size: 13px; font-weight: 600;">
-                                Message
-                              </td>
-                              <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: 1px solid #EDE8E0; color: #2C1A0E; font-size: 13px; line-height: 1.7;">
-                                ${formatBodyText(body.message)}
-                              </td>
-                            </tr>
-
-                            ${specRows
-                              .map(
-                                (row, index) => `
-                                <tr style="background-color: ${index % 2 === 0 ? "#FDFCFB" : "#FFFFFF"};">
-                                  <td width="35%" valign="top" style="padding: 11px 16px; border-bottom: ${index === specRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #9A8878; font-size: 13px; font-weight: 600;">
-                                    ${escapeHtml(row.label)}
-                                  </td>
-                                  <td width="65%" valign="top" style="padding: 11px 16px; border-bottom: ${index === specRows.length - 1 ? "none" : "1px solid #EDE8E0"}; color: #2C1A0E; font-size: 13px;">
-                                    ${escapeHtml(row.value)}
-                                  </td>
-                                </tr>
-                              `
-                              )
-                              .join("")}
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td style="background-color: #3D2B1F; padding: 20px 36px; border-radius: 0 0 4px 4px;">
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                      <tr>
-                        <td>
-                          <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6;">
-                            This message was submitted via the KWWI website contact form.
-                            Reply directly to this email to respond to the sender.
-                          </p>
-                        </td>
-                        <td align="right" valign="middle" style="padding-left: 20px; white-space: nowrap;">
-                          <p style="margin: 0; font-size: 11px; font-weight: 700; color: #CA9C60; letter-spacing: 0.08em; text-transform: uppercase;">
-                            KWWI
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td style="height: 3px; background-color: #CA9C60; border-radius: 0 0 4px 4px;"></td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
-      </html>
-    `;
+    const html = isQuote ? buildQuoteHtml(body) : buildInquiryHtml(body);
 
     const transporter = createMailer();
 
@@ -300,9 +384,6 @@ export async function POST(request: NextRequest) {
     console.error("[contact] email send failed:", err);
     const message =
       err instanceof Error ? err.message : "Internal server error";
-    return NextResponse.json(
-      { error: message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

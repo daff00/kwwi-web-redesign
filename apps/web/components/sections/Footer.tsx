@@ -18,9 +18,9 @@ export function Footer() {
               className="inline-block"
               onClick={() => window.scrollTo(0, 0)}
             >
-              <div className="relative w-[189px] h-[56px]">
+              <div className="relative w-[300px] h-[50px] flex-shrink-0">
                 <Image
-                  src="/logo-white.webp"
+                  src="/Logo-white.svg"
                   alt="KWWI Logo"
                   fill
                   className="object-contain object-left"
@@ -46,8 +46,7 @@ export function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
-                  Jl. Bunder Cikupa, Bunder, Tangerang, <br />
-                  Kabupaten Tangerang, Banten 15710
+                  Jalan Raya Serang Km. 12 <br/> Desa bunder, Cikupa, Tangerang – 15710
                 </span>
               </div>
               <a
@@ -55,11 +54,11 @@ export function Footer() {
                 className="flex items-center gap-3 hover:text-white transition-colors duration-300"
               >
                 <Phone className="h-5 w-5 shrink-0" />
-                <span>Phone: +62 21 596 0132</span>
+                <span>Phone: +6221-5960132</span>
               </a>
               <div className="flex items-center gap-3">
                 <Printer className="h-5 w-5 shrink-0" />
-                <span>Fax: +62 21 596 0424</span>
+                <span>Fax: +6221-5960424</span>
               </div>
               <a
                 href="mailto:kwwi@gmx.com"
@@ -79,7 +78,8 @@ export function Footer() {
                 { name: "Home", href: "/" },
                 { name: "About Us", href: "/about" },
                 { name: "Products", href: "/products" },
-                { name: "Get Quote", href: "/contact" },
+                { name: "Contact", href: "/contact" },
+                { name: "Get Quote", href: "/contact?tab=quote" },
               ].map((link) => (
                 <Link
                   key={link.name}

@@ -62,12 +62,12 @@ export function Navbar() {
               href="/"
               className="flex items-center gap-3 hover:opacity-90 transition-opacity"
             >
-              <div className="relative w-[189px] h-[56px]">
+              <div className="relative w-[270px] h-[81px] flex-shrink-0">
                 <Image
                   src={
                     navState === "white"
-                      ? "/logo-brown.webp"
-                      : "/logo-white.webp"
+                      ? "/Logo-color.svg"
+                      : "/Logo-white.svg"
                   }
                   alt="KWWI Logo"
                   fill

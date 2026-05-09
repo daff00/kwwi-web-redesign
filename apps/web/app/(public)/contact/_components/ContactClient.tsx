@@ -44,16 +44,16 @@ const tabs = ["General Inquiry", "Get Quote"];
 const locations = [
   {
     label: "Headquarters",
-    address: "Jl. Bunder Cikupa, Bunder, Tangerang, Banten 15710",
-    phone: "+62 21-5960132",
-    fax: "+62 21-5960424",
+    address: "Jalan Raya Serang Km. 12, Desa Bunder Cikupa, Tangerang – 15710",
+    phone: "+6221-5960132",
+    fax: "+6221-5960424",
     email: "kwwi@gmx.com",
   },
   {
     label: "Sawmill Factory",
     address:
-      "Jl. Raya Tegal - Pemalang Km. 13, Desa Sidabeug IGT 02/104 TG, Kecamatan Adiwerna, Kabupaten Tegal, Jawa Tengah",
-    phone: "+62 285-123456",
+      "Jalan Raya Tegal – Pemalang Km.11, Desa Sidaharja, Kecamatan Suradadi, Kabupaten Tegal",
+    phone: null,
     fax: null,
     email: null,
   },
@@ -103,10 +103,8 @@ function Field({ children }: { children: React.ReactNode }) {
 }
 
 // Consistent input className
-const inputCls =
-  "bg-white border border-[#C8B89A] text-[#3D2B1F] placeholder:text-[#C8B89A] rounded-xl h-11 focus:border-[#CA9C60] focus:ring-1 focus:ring-[#CA9C60]";
-const selectTriggerCls =
-  "bg-white border border-[#C8B89A] text-[#3D2B1F] rounded-xl h-11 focus:border-[#CA9C60] focus:ring-1 focus:ring-[#CA9C60]";
+const inputCls ="bg-white border border-[#C8B89A] text-[#3D2B1F] placeholder:text-[#C8B89A] rounded-xl h-11 focus:border-[#CA9C60] focus:ring-1 focus:ring-[#CA9C60]";
+const selectTriggerCls = "bg-white border border-[#C8B89A] text-[#3D2B1F] rounded-xl h-11 focus:border-[#CA9C60] focus:ring-1 focus:ring-[#CA9C60]";
 
 export default function ContactClient() {
   const searchParams = useSearchParams();
@@ -195,9 +193,7 @@ export default function ContactClient() {
       toast.error("Failed to send message", {
         description: (
           <div className="whitespace-pre-line">
-            {error instanceof Error
-              ? error.message
-              : "Please try again later."}
+            {error instanceof Error ? error.message : "Please try again later."}
           </div>
         ),
       });
@@ -215,16 +211,28 @@ export default function ContactClient() {
       >
         <div className="absolute inset-0 bg-black/50 z-0" />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent z-0" />
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-28 lg:py-32 w-full">
-          <Badge className="rounded-full bg-white/10 text-white border-white/30 backdrop-blur px-4 py-1.5 text-xs mb-4">
-            Contact PT Kalimas Wood Working Industry
-          </Badge>
-          <h1 className="text-white text-4xl sm:text-5xl font-bold drop-shadow-lg">
-            Get in Touch
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-28 lg:py-36 w-full flex flex-col justify-center items-start text-white">
+          <div className="mb-4">
+            <Badge className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm">
+              Contact PT Kalimas Wood Working Industry
+            </Badge>
+          </div>
+          <h1 className="mb-1.75 max-w-6xl text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl lg:text-6xl drop-shadow-lg">
+            Get In Touch With Us <br /> We're Here to Help
           </h1>
-          <p className="text-white/80 text-base mt-2">
-            We'll respond within 1 business day.
+          <p className="mb-8 max-w-4xl text-sm sm:text-base text-white/90">
+            Please feel free to contact us if you would like to make a business
+            inquiry or want to know more about us. <br></br>
           </p>
+          <p className="invisible">a</p>
+          <div className="flex flex-wrap gap-4 invisible">
+            <Badge className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm">
+              • Learn More
+            </Badge>
+            <Badge className="rounded-[15px] bg-white/10 text-white border-white/30 backdrop-blur p-3.75 text-sm">
+              • View Our Products
+            </Badge>
+          </div>
         </div>
       </section>
 

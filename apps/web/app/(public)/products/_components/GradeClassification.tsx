@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
+import { X } from "lucide-react";
 
 const grades = [
   {
@@ -83,33 +87,85 @@ const grades = [
 ];
 
 export default function GradeClassification() {
+  const [selectedImage, setSelectedImage] = useState<{
+    src: string;
+    name: string;
+  } | null>(null);
   const row1 = grades.slice(0, 3);
   const row2 = grades.slice(3);
 
   return (
-    <section className="bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Row 1 — 3 columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          {row1.map((grade) => (
-            <GradeCard key={grade.name} grade={grade} />
-          ))}
+    <>
+      <section className="bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            {row1.map((grade) => (
+              <GradeCard
+                key={grade.name}
+                grade={grade}
+                onZoom={setSelectedImage}
+              />
+            ))}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {row2.map((grade) => (
+              <GradeCard
+                key={grade.name}
+                grade={grade}
+                onZoom={setSelectedImage}
+              />
+            ))}
+          </div>
         </div>
+      </section>
 
-        {/* Row 2 — 4 columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {row2.map((grade) => (
-            <GradeCard key={grade.name} grade={grade} />
-          ))}
+      {/* Fullscreen Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative flex items-center justify-center w-full h-full">
+            <img
+              src={selectedImage.src}
+              alt={selectedImage.name}
+              className="object-contain max-w-[90vw] max-h-[90vh] w-auto h-auto block"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            <div className="absolute top-6 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-md">
+              <p className="text-sm font-bold tracking-widest">
+                {selectedImage.name}
+              </p>
+            </div>
+
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-6 right-6 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
+      )}
+    </>
   );
 }
 
-function GradeCard({ grade }: { grade: (typeof grades)[0] }) {
+function GradeCard({
+  grade,
+  onZoom,
+}: {
+  grade: (typeof grades)[0];
+  onZoom: (img: { src: string; name: string }) => void;
+}) {
   return (
-    <Card className="relative overflow-hidden bg-[#FAF6F0] border border-[#866544]/20 shadow-sm text-center flex flex-col items-center transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#CA9C60]/60 hover:bg-[#F5EDE0] group cursor-pointer h-full">
+    <Card
+      className="relative overflow-hidden bg-[#FAF6F0] border border-[#866544]/20 shadow-sm text-center flex flex-col items-center transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-[#CA9C60]/60 hover:bg-[#F5EDE0] group cursor-pointer h-full"
+      onClick={() =>
+        grade.image && onZoom({ src: grade.image, name: grade.name })
+      }
+    >
       {/* Top gold strip */}
       <div className="absolute top-0 left-0 w-full h-4 bg-[#CA9C60]" />
 
@@ -121,17 +177,19 @@ function GradeCard({ grade }: { grade: (typeof grades)[0] }) {
       {/* Image area */}
       <div className="relative w-full h-72 bg-[#A0845C] mb-[-17] overflow-hidden">
         {grade.image ? (
-          <Image
-            src={grade.image}
-            alt={grade.name}
-            fill
-            className="object-cover"
-            style={{
-              objectPosition: "center center",
-              transform: "scale(1.1)", // zoom in — increase for more zoom
-              transformOrigin: "63% center",
-            }}
-          />
+          <>
+            <Image
+              src={grade.image}
+              alt={grade.name}
+              fill
+              className="object-cover"
+              style={{
+                objectPosition: "center center",
+                transform: "scale(1.1)",
+                transformOrigin: "63% center",
+              }}
+            />
+          </>
         ) : (
           <div className="w-full h-full bg-gradient-to-b from-[#C4A882] to-[#8B6F4E] flex items-center justify-center">
             <span className="text-white/50 text-xs">Product Image</span>
@@ -151,7 +209,9 @@ function GradeCard({ grade }: { grade: (typeof grades)[0] }) {
       <div className="flex flex-col gap-3 px-5 py-5 flex-1 w-full text-left">
         {/* Face */}
         <div className="min-h-[80px]">
-          <p className="text-[#5C3D1E] font-semibold text-[14px] mb-1.5">Face</p>
+          <p className="text-[#5C3D1E] font-semibold text-[14px] mb-1.5">
+            Face
+          </p>
           <ul className="text-[#7A5C3A] text-xs space-y-1">
             {grade.face.map((item) => (
               <li key={item}>• {item}</li>
@@ -164,7 +224,9 @@ function GradeCard({ grade }: { grade: (typeof grades)[0] }) {
 
         {/* Back */}
         <div className="min-h-[60px]">
-          <p className="text-[#5C3D1E] font-semibold text-[14px] mb-1.5">Back</p>
+          <p className="text-[#5C3D1E] font-semibold text-[14px] mb-1.5">
+            Back
+          </p>
           <ul className="text-[#7A5C3A] text-xs space-y-1">
             {grade.back.length > 0 ? (
               grade.back.map((item) => <li key={item}>• {item}</li>)
@@ -176,7 +238,9 @@ function GradeCard({ grade }: { grade: (typeof grades)[0] }) {
 
         {/* Bottom divider + Not Allowed */}
         <div className="mt-auto pt-2 border-t border-[#CA9C60]/20 w-full">
-          <p className="text-[#A0341E] font-bold text-[14px] mb-1">Not allowed</p>
+          <p className="text-[#A0341E] font-bold text-[14px] mb-1">
+            Not allowed
+          </p>
           <p className="text-[#7A5C3A] text-xs leading-relaxed">
             {grade.notAllowed}
           </p>

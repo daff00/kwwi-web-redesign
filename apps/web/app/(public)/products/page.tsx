@@ -133,7 +133,7 @@ export default async function ProductsPage() {
             {/* Left - Image */}
             <div className="relative w-full lg:w-1/2 aspect-[16/9] rounded-2xl overflow-hidden bg-gradient-to-b from-[#C4A882] to-[#8B6F4E] flex items-center justify-center shrink-0">
               <Image
-                src="/FJLB-img.webp"
+                src="/FJLBInformation.jpg"
                 alt="FJLB Product"
                 fill
                 className="object-contain"
