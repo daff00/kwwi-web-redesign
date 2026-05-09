@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: 'Welcome to KWWI',
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/logo-tab.svg", type: "image/svg+xml" },
     ]
   },
 };
