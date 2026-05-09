@@ -122,29 +122,26 @@ export default function GradeClassification() {
       {/* Fullscreen Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
           onClick={() => setSelectedImage(null)}
         >
-          <div
-            className="relative w-full max-w-3xl mx-4 aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
+          <div className="relative flex items-center justify-center w-full h-full">
+            <img
               src={selectedImage.src}
               alt={selectedImage.name}
-              fill
-              className="object-cover"
+              className="object-contain max-w-[90vw] max-h-[90vh] w-auto h-auto block"
+              onClick={(e) => e.stopPropagation()}
             />
-            {/* Grade name overlay */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-6 py-4">
-              <p className="text-white font-bold tracking-widest text-sm">
+
+            <div className="absolute top-6 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-md">
+              <p className="text-sm font-bold tracking-widest">
                 {selectedImage.name}
               </p>
             </div>
-            {/* Close button */}
+
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition-colors"
+              className="absolute top-6 right-6 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>

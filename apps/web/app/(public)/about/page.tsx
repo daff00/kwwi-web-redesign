@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
 import CertificationCarousel from "@/components/sections/CertificationCarousel";
+import AboutInteractive from "@/components/sections/AboutInteractive";
 import MarketGlobe from "@/components/sections/MarketGlobe";
 import SectionHeader from "../../../components/sections/SectionHeader";
 import { statCards, processCards } from "./_data/_data";
@@ -105,25 +106,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Process Cards */}
+      {/* Facilities Cards */}
       <section className="bg-white pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {processCards.map((item) => (
-              <Card key={item.number} className="relative overflow-hidden bg-[#EEEAE4] border border-[#866544]/20 shadow-sm flex flex-col transition-all duration-300 ease-in-out group cursor-pointer hover:-translate-y-1 hover:border-[#CA9C60]/60 hover:bg-[#E8E2D8]">
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-[#CA9C60]" />
-                <div className="relative w-full aspect-[4/3] bg-[#D9D4CC] mt-1.5">
-                  <Image src={item.image} alt={item.title} fill className="object-cover" />
-                </div>
-                <div className="flex flex-col gap-3 px-5 py-5">
-                  <div className="flex items-start gap-3">
-                    <span className="text-4xl font-bold text-[#CA9C60]/30 leading-none shrink-0">{item.number}</span>
-                    <h3 className="text-[#5C3D1E] text-base font-bold underline underline-offset-2 decoration-[#CA9C60] leading-snug">{item.title}</h3>
-                  </div>
-                  <p className="text-[#7A5C3A] text-sm leading-relaxed text-justify">{item.description}</p>
-                </div>
-              </Card>
-            ))}
+            <AboutInteractive processCards={processCards} />
           </div>
         </div>
         <Divider />
